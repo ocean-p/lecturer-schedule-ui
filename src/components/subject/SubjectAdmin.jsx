@@ -32,61 +32,61 @@ const SubjectAdmin = () => {
 
   //get all departments
   useEffect(() => {
-    request.get('Department', {
-      params: { sortBy: 'Id', order:'Asc',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if(res.data.length > 0){
-        setDepartments(res.data);
-        setSelectedDepartment(res.data[0].Id)
-      }
-    }).catch(err => {
-      alert('Fail to load departments')
-    })
+    // request.get('Department', {
+    //   params: { sortBy: 'Id', order:'Asc',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if(res.data.length > 0){
+    //     setDepartments(res.data);
+    //     setSelectedDepartment(res.data[0].Id)
+    //   }
+    // }).catch(err => {
+    //   alert('Fail to load departments')
+    // })
   }, [])
 
   //get subjects by departments
   useEffect(() => {
-    setLoading(true)
-    if(selectedDepartment){
-      request.get('Subject', {
-        params: {DepartmentId: selectedDepartment, sortBy: 'Id', order:'Asc',
-          pageIndex: 1, pageSize: 1000
-        }
-      })
-      .then(res => {
-        if(res.data){
-          setSubjects(res.data);
-          setLoading(false)
-        }
-      })
-      .catch(err => {
-        alert('Fail to load subjects')
-        setLoading(false)
-      })
-    }
+    // setLoading(true)
+    // if(selectedDepartment){
+    //   request.get('Subject', {
+    //     params: {DepartmentId: selectedDepartment, sortBy: 'Id', order:'Asc',
+    //       pageIndex: 1, pageSize: 1000
+    //     }
+    //   })
+    //   .then(res => {
+    //     if(res.data){
+    //       setSubjects(res.data);
+    //       setLoading(false)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load subjects')
+    //     setLoading(false)
+    //   })
+    // }
   }, [selectedDepartment, reload])
 
   //get all courses
   useEffect(() => {
-    request.get('Course', {params: {pageIndex: 1, pageSize: 1000}})
-    .then(res => {
-      if(res.data.length > 0){
-        setCourses(res.data)
-      }
-    })
-    .catch(err => {})
+    // request.get('Course', {params: {pageIndex: 1, pageSize: 1000}})
+    // .then(res => {
+    //   if(res.data.length > 0){
+    //     setCourses(res.data)
+    //   }
+    // })
+    // .catch(err => {})
   }, [])
 
   //get semesters
   useEffect(() => {
-    request.get('Semester', {params: {pageIndex: 1, pageSize: 100}})
-    .then(res => {
-      if(res.data.length > 0){
-        setSemesters(res.data)
-      }
-    })
+    // request.get('Semester', {params: {pageIndex: 1, pageSize: 100}})
+    // .then(res => {
+    //   if(res.data.length > 0){
+    //     setSemesters(res.data)
+    //   }
+    // })
   }, [])
 
   const handleChangePage = (event, newPage) => {

@@ -32,53 +32,53 @@ const DepartmentAdmin = () => {
 
   //get all departments
   useEffect(() => {
-    setLoading(true)
-    request.get('Department', {
-      params: {sortBy: 'Id', order: 'Asc',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data) {
-        setDepartments(res.data);
-        setLoading(false)
-      }
-    }).catch(err => {
-      alert('Fail to load departments')
-      setLoading(false)
-    })
+    // setLoading(true)
+    // request.get('Department', {
+    //   params: {sortBy: 'Id', order: 'Asc',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data) {
+    //     setDepartments(res.data);
+    //     setLoading(false)
+    //   }
+    // }).catch(err => {
+    //   alert('Fail to load departments')
+    //   setLoading(false)
+    // })
   }, [reload])
 
   //get managers
   useEffect(() => {
-    request.get('User', {
-      params:{RoleIDs: 'DMA',pageIndex: 1, pageSize: 100}
-    }).then(res => {
-      if(res.data){
-        setManagers(res.data)
-      }
-    }).catch(err => {
-      alert('Fail to load managers')
-    })
+    // request.get('User', {
+    //   params:{RoleIDs: 'DMA',pageIndex: 1, pageSize: 100}
+    // }).then(res => {
+    //   if(res.data){
+    //     setManagers(res.data)
+    //   }
+    // }).catch(err => {
+    //   alert('Fail to load managers')
+    // })
   }, [])
 
   //get subjects
   useEffect(() => {
-    request.get('Subject', {params: {pageIndex: 1, pageSize: 500}})
-      .then(res => {
-        if (res.data.length > 0) {
-          setSubjects(res.data)
-        }
-      })
+    // request.get('Subject', {params: {pageIndex: 1, pageSize: 500}})
+    //   .then(res => {
+    //     if (res.data.length > 0) {
+    //       setSubjects(res.data)
+    //     }
+    //   })
   }, [])
 
   //get semesters
   useEffect(() => {
-    request.get('Semester', {params: {pageIndex: 1, pageSize: 100}})
-    .then(res => {
-      if(res.data.length > 0){
-        setSemesters(res.data)
-      }
-    })
+    // request.get('Semester', {params: {pageIndex: 1, pageSize: 100}})
+    // .then(res => {
+    //   if(res.data.length > 0){
+    //     setSemesters(res.data)
+    //   }
+    // })
   }, [])
 
   const handleChangePage = (event, newPage) => {

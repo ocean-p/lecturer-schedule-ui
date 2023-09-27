@@ -38,7 +38,8 @@ const Leftbar = ({ isExtend, user, tabs }) => {
     <Stack flex={isExtend ? 0.9 : 0.34} height='90vh'
       borderRight='1px solid lightgray'
     >
-      {(account.RoleIDs.includes('LC') && account.RoleIDs.includes('DMA')) &&
+      {//(account.RoleIDs.includes('LC') && account.RoleIDs.includes('DMA')) &&
+        !location.pathname.startsWith('/admin') && 
         <Stack borderBottom='1px solid #e3e3e3' alignItems='center' mt={2} gap={1}>  
           <Button size='small' variant='outlined' sx={{ mb: 2, width: '80%', fontSize: '14px', textTransform: 'none' }}
             onClick={changeRole}>

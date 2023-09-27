@@ -22,23 +22,23 @@ const SemesterAdmin = () => {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
-    request.get('Semester', {
-      params: {
-        sortBy: 'DateEnd', order: 'Des',
-        pageIndex: 1, pageSize: 100
-      }
-    })
-      .then(res => {
-        if (res.status === 200) {
-          setSemesters(res.data)
-          setLoading(false);
-        }
-      })
-      .catch(err => {
-        alert('Fail to load semesters!')
-        setLoading(false)
-      })
+    // setLoading(true)
+    // request.get('Semester', {
+    //   params: {
+    //     sortBy: 'DateEnd', order: 'Des',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // })
+    //   .then(res => {
+    //     if (res.status === 200) {
+    //       setSemesters(res.data)
+    //       setLoading(false);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load semesters!')
+    //     setLoading(false)
+    //   })
   }, [reload])
 
   const clickDelete = (pickedSemester) => {

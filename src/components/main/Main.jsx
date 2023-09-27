@@ -29,22 +29,22 @@ const Main = () => {
   //get semester list
   useEffect(() => {
     const getSemesters = async() => {
-      try {
-        const response = await request.get('Semester', {
-          params: {
-            sortBy: 'DateEnd',
-            order: 'Des',
-            pageIndex: 1,
-            pageSize: 999
-          }
-        })
-        if(response.status === 200){
-          setSemesters(response.data)
-        }
-      } 
-      catch (error) {
-        alert('Fail to load Semester!')
-      }
+      // try {
+      //   const response = await request.get('Semester', {
+      //     params: {
+      //       sortBy: 'DateEnd',
+      //       order: 'Des',
+      //       pageIndex: 1,
+      //       pageSize: 999
+      //     }
+      //   })
+      //   if(response.status === 200){
+      //     setSemesters(response.data)
+      //   }
+      // } 
+      // catch (error) {
+      //   alert('Fail to load Semester!')
+      // }
     }
 
     getSemesters();
@@ -176,7 +176,7 @@ const Main = () => {
         </Stack>
       </Stack>
       <Timetable selectedSemester={selectedSemester} selectedWeekObj={selectedWeekObj}
-        lecturerId={account.Id} isPublic={true} overTen={overTen}/>
+        lecturerId={1} isPublic={true} overTen={overTen}/>
     </Stack>
   )
 }

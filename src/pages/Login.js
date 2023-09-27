@@ -20,50 +20,51 @@ const Login = () => {
   useEffect(() => {
     if(isInitialized){
       if (isSignedIn) {
-        setIsLoading(true)
-        request.post(`Token/Login?email=${googleUser?.profileObj?.email}`)
-          .then(res => {
-            if (res.status === 200) {
-              const accessKey = res.data.access_token
-              request.get(`UserAuthen/email/${googleUser?.profileObj?.email}`, {
-                headers: {Authorization: `Bearer ${accessKey}`}
-              }).then(res => {
-                setIsLoading(false)
-                if (res.data.RoleIDs.includes('LC')) {
-                  navigate('/lecturer')
-                }
-                else if (res.data.RoleIDs.includes('DMA')) {
-                  navigate('/manager')
-                }
-                else {
-                  navigate('/admin')
-                }
-              }).catch(err => {
-                signOut();
-                if (err?.response?.data?.status === 404) {
-                  setError('This email can not be signed in.')
-                }
-                else {
-                  setError('Fail to sign in.')
-                }
-                setIsLoading(false)
-              })
-            }
-          })
-          .catch(err => {
-            signOut();
-            if (err?.response?.data?.status === 404) {
-              setError('This email can not be signed in.')
-            }
-            else {
-              setError('Fail to sign in.')
-            }
-            setIsLoading(false)
-          })
+        //setIsLoading(true)
+        navigate('/lecturer')
+        // request.post(`Token/Login?email=${googleUser?.profileObj?.email}`)
+        //   .then(res => {
+        //     if (res.status === 200) {
+        //       const accessKey = res.data.access_token
+        //       request.get(`UserAuthen/email/${googleUser?.profileObj?.email}`, {
+        //         headers: {Authorization: `Bearer ${accessKey}`}
+        //       }).then(res => {
+        //         setIsLoading(false)
+        //         if (res.data.RoleIDs.includes('LC')) {
+        //           navigate('/lecturer')
+        //         }
+        //         else if (res.data.RoleIDs.includes('DMA')) {
+        //           navigate('/manager')
+        //         }
+        //         else {
+        //           navigate('/admin')
+        //         }
+        //       }).catch(err => {
+        //         signOut();
+        //         if (err?.response?.data?.status === 404) {
+        //           setError('This email can not be signed in.')
+        //         }
+        //         else {
+        //           setError('Fail to sign in.')
+        //         }
+        //         setIsLoading(false)
+        //       })
+        //     }
+        //   })
+        //   .catch(err => {
+        //     signOut();
+        //     if (err?.response?.data?.status === 404) {
+        //       setError('This email can not be signed in.')
+        //     }
+        //     else {
+        //       setError('Fail to sign in.')
+        //     }
+        //     setIsLoading(false)
+        //   })
       }
-      else{
-        navigate('/')
-      }
+      // else{
+      //   navigate('/')
+      // }
     }
     
   }, [isSignedIn, googleUser, signOut, navigate, isInitialized])

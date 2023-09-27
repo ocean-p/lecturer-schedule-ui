@@ -22,63 +22,64 @@ const ScheduleManager = ({ admin }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getDepartments = async () => {
-      setLoadDepart(true)
-      try {
-        if (admin) {
-          const departmentList = await request.get('Department', {
-            params: {
-              sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
-            }
-          })
-          if (departmentList.data) {
-            setDepartments(departmentList.data)
-            setSelectedDepartment(departmentList.data[0]?.Id)
-            setLoadDepart(false)
-          }
-        }
-        else {
-          const response = await request.get(`Department/${account.DepartmentId}`);
-          const departmentList = await request.get('Department', {
-            params: {
-              DepartmentGroupId: response.data.DepartmentGroupId,
-              sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
-            }
-          })
-          if (departmentList.data) {
-            setDepartments(departmentList.data)
-            setSelectedDepartment(account.DepartmentId)
-            setLoadDepart(false)
-          }
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-        setLoadDepart(false)
-      }
-    }
+    // const getDepartments = async () => {
+    //   setLoadDepart(true)
+    //   try {
+    //     if (admin) {
+    //       const departmentList = await request.get('Department', {
+    //         params: {
+    //           sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //         }
+    //       })
+    //       if (departmentList.data) {
+    //         setDepartments(departmentList.data)
+    //         setSelectedDepartment(departmentList.data[0]?.Id)
+    //         setLoadDepart(false)
+    //       }
+    //     }
+    //     else {
+    //       const response = await request.get(`Department/${account.DepartmentId}`);
+    //       const departmentList = await request.get('Department', {
+    //         params: {
+    //           DepartmentGroupId: response.data.DepartmentGroupId,
+    //           sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //         }
+    //       })
+    //       if (departmentList.data) {
+    //         setDepartments(departmentList.data)
+    //         setSelectedDepartment(account.DepartmentId)
+    //         setLoadDepart(false)
+    //       }
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //     setLoadDepart(false)
+    //   }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId, admin])
+    // getDepartments();
+  //}, [account.DepartmentId, admin])
+  }, [])
 
   useEffect(() => {
-    setLoadLecturer(true)
-    if(selectedDepartment){
-      request.get('User', {
-        params: { DepartmentId: selectedDepartment,
-          RoleIDs: 'LC', sortBy:'DepartmentId', order:'Asc',
-          pageIndex: 1, pageSize: 500
-        }
-      }).then(res => {
-        if (res.data) {
-          setlecturers(res.data)
-          setLoadLecturer(false);
-        }
-      }).catch(err => {
-        alert('Fail to load lecturers');
-        setLoadLecturer(false)
-      })
-    }
+    // setLoadLecturer(true)
+    // if(selectedDepartment){
+    //   request.get('User', {
+    //     params: { DepartmentId: selectedDepartment,
+    //       RoleIDs: 'LC', sortBy:'DepartmentId', order:'Asc',
+    //       pageIndex: 1, pageSize: 500
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setlecturers(res.data)
+    //       setLoadLecturer(false);
+    //     }
+    //   }).catch(err => {
+    //     alert('Fail to load lecturers');
+    //     setLoadLecturer(false)
+    //   })
+    // }
   }, [selectedDepartment])
 
   useEffect(() => {
@@ -139,15 +140,15 @@ const ScheduleManager = ({ admin }) => {
         </Select>
         {!admin && <Tooltip title='My Department' placement='top' arrow>
           <Beenhere onClick={myDepartment}
-            sx={{
-              ml: 2,
-              color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
-              fontSize: '28px',
-              '&:hover': {
-                cursor: 'pointer',
-                color: green[600]
-              }
-            }}
+            // sx={{
+            //   ml: 2,
+            //   color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+            //   fontSize: '28px',
+            //   '&:hover': {
+            //     cursor: 'pointer',
+            //     color: green[600]
+            //   }
+            // }}
           />
         </Tooltip>}
       </Stack>

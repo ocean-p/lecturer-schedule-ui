@@ -6,8 +6,21 @@ import EditModal from './EditModal';
 import request from '../../utils/request';
 import { ToastContainer, toast } from 'react-toastify';
 
+const initialAccount = {
+  Name: '',
+  DateOfBirthFormatted: '',
+  Phone: '',
+  Address: '',
+  Gender: '',
+  Idcard: '',
+  Email: '',
+  DepartmentName: '',
+  IsFullTime: 1,
+}
+
 const Profile = () => {
-  const [account, setAccount] = useState(JSON.parse(localStorage.getItem('web-user')));
+  //const [account, setAccount] = useState(JSON.parse(localStorage.getItem('web-user')));
+  const [account, setAccount] = useState(initialAccount)
   const [name, setName] = useState(account.Name);
   const [dob, setDob] = useState(account.DateOfBirthFormatted);
   const [phone, setPhone] = useState(account.Phone);
@@ -27,32 +40,32 @@ const Profile = () => {
   const handleShow = () => setShow(true);
 
   const handleSave = () => {
-    request.put(`User/${account.Id}`, {
-      Name: name, Email: email,
-      Dob: dob, Gender: radioValue,
-      Idcard: idCard, Address: address,
-      Phone: phone, PriorityLecturer: account.PriorityLecturer,
-      IsFullTime: account.IsFullTime, DepartmentId: account.DepartmentId
-    }).then(res => {
-      if (res.status === 200) {
-        localStorage.setItem('web-user', JSON.stringify(res.data))
-        setAccount(res.data)
-        setShow(false);
-        toast.success('Update profile successfully', {
-          position: "top-right", autoClose: 3000,
-          hideProgressBar: false, closeOnClick: true,
-          pauseOnHover: true, draggable: true,
-          progress: undefined, theme: "light",
-        });
-      }
-    }).catch(err => {
-      toast.error('Fail to update profile', {
-        position: "top-right", autoClose: 3000,
-        hideProgressBar: false, closeOnClick: true,
-        pauseOnHover: true, draggable: true,
-        progress: undefined, theme: "light",
-      });
-    })
+    // request.put(`User/${account.Id}`, {
+    //   Name: name, Email: email,
+    //   Dob: dob, Gender: radioValue,
+    //   Idcard: idCard, Address: address,
+    //   Phone: phone, PriorityLecturer: account.PriorityLecturer,
+    //   IsFullTime: account.IsFullTime, DepartmentId: account.DepartmentId
+    // }).then(res => {
+    //   if (res.status === 200) {
+    //     localStorage.setItem('web-user', JSON.stringify(res.data))
+    //     setAccount(res.data)
+    //     setShow(false);
+    //     toast.success('Update profile successfully', {
+    //       position: "top-right", autoClose: 3000,
+    //       hideProgressBar: false, closeOnClick: true,
+    //       pauseOnHover: true, draggable: true,
+    //       progress: undefined, theme: "light",
+    //     });
+    //   }
+    // }).catch(err => {
+    //   toast.error('Fail to update profile', {
+    //     position: "top-right", autoClose: 3000,
+    //     hideProgressBar: false, closeOnClick: true,
+    //     pauseOnHover: true, draggable: true,
+    //     progress: undefined, theme: "light",
+    //   });
+    // })
   }
 
   return (
@@ -95,13 +108,13 @@ const Profile = () => {
             defaultValue={email}
             InputProps={{ readOnly: true }} />
         </Tooltip>
-        {(account.RoleIDs.includes('LC') || account.RoleIDs.includes('DMA')) &&
+        {//(account.RoleIDs.includes('LC') || account.RoleIDs.includes('DMA')) &&
           <Tooltip title='Can not modify' placement='right' arrow>
             <TextField label='Department' variant='outlined' color='success' margin='normal' size='small'
               defaultValue={department}
               InputProps={{ readOnly: true }} />
           </Tooltip>}
-        {account.RoleIDs.includes('LC') &&
+        {//account.RoleIDs.includes('LC') &&
           <Tooltip title='Can not modify' placement='right' arrow>
             <TextField label='Lecturer Type' variant='outlined' color='success' margin='normal' size='small'
               defaultValue={type}

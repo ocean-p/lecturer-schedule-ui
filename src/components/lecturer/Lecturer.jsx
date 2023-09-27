@@ -14,7 +14,8 @@ const Lecturer = () => {
   const account = JSON.parse(localStorage.getItem('web-user'));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  //const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  const [selectedDepartment, setSelectedDepartment] = useState(null)
   const [departments, setDepartments] = useState([]);
   const [lecturers, setlecturers] = useState([]);
   const [loadDepart, setLoadDepart] = useState(false);
@@ -22,51 +23,52 @@ const Lecturer = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const getDepartments = async () => {
-      setLoadDepart(true)
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentList = await request.get('Department', {
-          params: {
-            DepartmentGroupId: response.data.DepartmentGroupId,
-            pageIndex: 1,
-            pageSize: 1000
-          }
-        })
-        if (departmentList.data) {
-          setDepartments(departmentList.data)
-          setLoadDepart(false)
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-        setLoadDepart(false)
-      }
-    }
+    // const getDepartments = async () => {
+    //   setLoadDepart(true)
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentList = await request.get('Department', {
+    //       params: {
+    //         DepartmentGroupId: response.data.DepartmentGroupId,
+    //         pageIndex: 1,
+    //         pageSize: 1000
+    //       }
+    //     })
+    //     if (departmentList.data) {
+    //       setDepartments(departmentList.data)
+    //       setLoadDepart(false)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //     setLoadDepart(false)
+    //   }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  //}, [account.DepartmentId])
+  }, [])
 
   useEffect(() => {
-    setLoadLecturer(true)
-    request.get('User', {
-      params: {
-        DepartmentId: selectedDepartment,
-        RoleIDs: 'LC',
-        pageIndex: 1,
-        pageSize: 500
-      }
-    })
-    .then(res => {
-      if(res.data){
-        setlecturers(res.data)
-        setLoadLecturer(false)
-      }
-    })
-    .catch(err => {
-      alert('Fail to load lecturers');
-      setLoadLecturer(false);
-    })
+    // setLoadLecturer(true)
+    // request.get('User', {
+    //   params: {
+    //     DepartmentId: selectedDepartment,
+    //     RoleIDs: 'LC',
+    //     pageIndex: 1,
+    //     pageSize: 500
+    //   }
+    // })
+    // .then(res => {
+    //   if(res.data){
+    //     setlecturers(res.data)
+    //     setLoadLecturer(false)
+    //   }
+    // })
+    // .catch(err => {
+    //   alert('Fail to load lecturers');
+    //   setLoadLecturer(false);
+    // })
   }, [selectedDepartment])
 
   useEffect(() => {
@@ -122,15 +124,15 @@ const Lecturer = () => {
         </Select>
         <Tooltip title='My Department' placement='top' arrow>
           <Beenhere onClick={myDepartment}
-            sx={{
-              ml: 2,
-              color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
-              fontSize: '28px',
-              '&:hover': {
-                cursor: 'pointer',
-                color: green[600]
-              }
-            }}
+            // sx={{
+            //   ml: 2,
+            //   color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+            //   fontSize: '28px',
+            //   '&:hover': {
+            //     cursor: 'pointer',
+            //     color: green[600]
+            //   }
+            // }}
           />
         </Tooltip>
       </Stack>

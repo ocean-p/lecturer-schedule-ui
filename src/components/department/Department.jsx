@@ -21,80 +21,81 @@ const Department = () => {
 
   //get Department Group List
   useEffect(() => {
-    setLoadSubject(true);
-    const getDepartments = async () => {
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentList = await request.get('Department', {
-          params: {
-            DepartmentGroupId: response.data.DepartmentGroupId,
-            pageIndex: 1,
-            pageSize: 1000
-          }
-        })
-        if (departmentList.data) {
-          setDepartments(departmentList.data)
-          setSelectedDepartment(account.DepartmentId)
-          setLoadSubject(false);
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-        setLoadSubject(false)
-      }
-    }
+    // setLoadSubject(true);
+    // const getDepartments = async () => {
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentList = await request.get('Department', {
+    //       params: {
+    //         DepartmentGroupId: response.data.DepartmentGroupId,
+    //         pageIndex: 1,
+    //         pageSize: 1000
+    //       }
+    //     })
+    //     if (departmentList.data) {
+    //       setDepartments(departmentList.data)
+    //       setSelectedDepartment(account.DepartmentId)
+    //       setLoadSubject(false);
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //     setLoadSubject(false)
+    //   }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  //}, [account.DepartmentId])
+  }, [])
 
   //get subject list by department
   useEffect(() => {
-    const getSubjects = async () => {
-      try {
-        const response = await request.get('Subject', {
-          params: {
-            DepartmentId: selectedDepartment,
-            pageIndex: 1,
-            pageSize: 1000
-          }
-        })
-        if (response.data) {
-          setSubjects(response.data)
-        }
-      }
-      catch (error) {
-        alert('Fail to load subjects!');
-      }
-    }
+    // const getSubjects = async () => {
+    //   try {
+    //     const response = await request.get('Subject', {
+    //       params: {
+    //         DepartmentId: selectedDepartment,
+    //         pageIndex: 1,
+    //         pageSize: 1000
+    //       }
+    //     })
+    //     if (response.data) {
+    //       setSubjects(response.data)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load subjects!');
+    //   }
+    // }
 
-    getSubjects();
+    // getSubjects();
   }, [selectedDepartment])
 
   //get Manager by department
   useEffect(() => {
-    if (selectedDepartment) {
-      request.get('User', {
-        params: {
-          DepartmentId: selectedDepartment,
-          RoleIDs: 'DMA',
-          pageIndex: 1,
-          pageSize: 1
-        }
-      })
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.length > 0) {
-              setManager(res.data[0])
-            }
-            else{
-              setManager({})
-            }
-          }
-        })
-        .catch(err => {
-          alert('Fail to get manger!')
-        })
-    }
+    // if (selectedDepartment) {
+    //   request.get('User', {
+    //     params: {
+    //       DepartmentId: selectedDepartment,
+    //       RoleIDs: 'DMA',
+    //       pageIndex: 1,
+    //       pageSize: 1
+    //     }
+    //   })
+    //     .then(res => {
+    //       if (res.status === 200) {
+    //         if (res.data.length > 0) {
+    //           setManager(res.data[0])
+    //         }
+    //         else{
+    //           setManager({})
+    //         }
+    //       }
+    //     })
+    //     .catch(err => {
+    //       alert('Fail to get manger!')
+    //     })
+    // }
   }, [selectedDepartment])
 
   useEffect(() => {
@@ -142,15 +143,15 @@ const Department = () => {
           </Select>
           <Tooltip title='My Department' placement='top' arrow>
             <Beenhere onClick={() => { if (selectedDepartment !== account.DepartmentId) setSelectedDepartment(account.DepartmentId) }}
-              sx={{
-                ml: 2,
-                color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
-                fontSize: '28px',
-                '&:hover': {
-                  cursor: 'pointer',
-                  color: green[600]
-                }
-              }}
+              // sx={{
+              //   ml: 2,
+              //   color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+              //   fontSize: '28px',
+              //   '&:hover': {
+              //     cursor: 'pointer',
+              //     color: green[600]
+              //   }
+              // }}
             />
           </Tooltip>
         </Stack>

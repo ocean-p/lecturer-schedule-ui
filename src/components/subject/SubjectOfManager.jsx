@@ -9,7 +9,8 @@ import request from '../../utils/request';
 const SubjectOfManager = () => {
   const account = JSON.parse(localStorage.getItem('web-user'));
   const [page, setPage] = useState(0);
-  const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  //const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  const [selectedDepartment, setSelectedDepartment] = useState(null)
   const [departments, setDepartments] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [manager, setManager] = useState({});
@@ -19,56 +20,57 @@ const SubjectOfManager = () => {
 
   //get department list
   useEffect(() => {
-    const getDepartments = async () => {
-      setLoadDepart(true);
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentList = await request.get('Department', {
-          params: {
-            DepartmentGroupId: response.data.DepartmentGroupId,
-            pageIndex: 1,
-            pageSize: 1000
-          }
-        })
-        if (departmentList.data) {
-          setDepartments(departmentList.data)
-          setLoadDepart(false);
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-        setLoadDepart(false)
-      }
-    }
+    // const getDepartments = async () => {
+    //   setLoadDepart(true);
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentList = await request.get('Department', {
+    //       params: {
+    //         DepartmentGroupId: response.data.DepartmentGroupId,
+    //         pageIndex: 1,
+    //         pageSize: 1000
+    //       }
+    //     })
+    //     if (departmentList.data) {
+    //       setDepartments(departmentList.data)
+    //       setLoadDepart(false);
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //     setLoadDepart(false)
+    //   }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  //}, [account.DepartmentId])
+  }, [])
 
   //get list subject by departments
   useEffect(() => {
-    setLoadSubject(true)
-    const getSubjects = async () => {
-      try {
-        const response = await request.get('Subject', {
-          params: {
-            DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
-            pageIndex: 1, pageSize: 1000
-          }
-        })
-        if (response.data) {
-          setSubjects(response.data)
-          setLoadSubject(false);
-        }
-      }
-      catch (error) {
-        alert('Fail to load subjects!');
-        setLoadSubject(false);
-      }
-    }
+    // setLoadSubject(true)
+    // const getSubjects = async () => {
+    //   try {
+    //     const response = await request.get('Subject', {
+    //       params: {
+    //         DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
+    //         pageIndex: 1, pageSize: 1000
+    //       }
+    //     })
+    //     if (response.data) {
+    //       setSubjects(response.data)
+    //       setLoadSubject(false);
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load subjects!');
+    //     setLoadSubject(false);
+    //   }
+    // }
 
-    if(selectedDepartment){
-      getSubjects();
-    }
+    // if(selectedDepartment){
+    //   getSubjects();
+    // }
   }, [selectedDepartment])
 
   useEffect(() => {
@@ -79,27 +81,27 @@ const SubjectOfManager = () => {
 
   //get manager of department
   useEffect(() => {
-    if (selectedDepartment) {
-      request.get('User', {
-        params: {
-          DepartmentId: selectedDepartment, RoleIDs: 'DMA',
-          pageIndex: 1, pageSize: 1
-        }
-      })
-        .then(res => {
-          if (res.status === 200) {
-            if (res.data.length > 0) {
-              setManager(res.data[0])
-            }
-            else{
-              setManager({})
-            }
-          }
-        })
-        .catch(err => {
-          alert('Fail to get manger!')
-        })
-    }
+    // if (selectedDepartment) {
+    //   request.get('User', {
+    //     params: {
+    //       DepartmentId: selectedDepartment, RoleIDs: 'DMA',
+    //       pageIndex: 1, pageSize: 1
+    //     }
+    //   })
+    //     .then(res => {
+    //       if (res.status === 200) {
+    //         if (res.data.length > 0) {
+    //           setManager(res.data[0])
+    //         }
+    //         else{
+    //           setManager({})
+    //         }
+    //       }
+    //     })
+    //     .catch(err => {
+    //       alert('Fail to get manger!')
+    //     })
+    // }
   }, [selectedDepartment])
 
   const handleChangePage = (event, newPage) => {
@@ -146,15 +148,15 @@ const SubjectOfManager = () => {
         </Select>
         <Tooltip title='My Department' placement='top' arrow>
           <Beenhere onClick={myDepartment}
-            sx={{
-              ml: 2,
-              color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
-              fontSize: '28px',
-              '&:hover': {
-                cursor: 'pointer',
-                color: green[600]
-              }
-            }}
+            // sx={{
+            //   ml: 2,
+            //   color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+            //   fontSize: '28px',
+            //   '&:hover': {
+            //     cursor: 'pointer',
+            //     color: green[600]
+            //   }
+            // }}
           />
         </Tooltip>
       </Stack>

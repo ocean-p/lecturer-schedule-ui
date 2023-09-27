@@ -16,16 +16,17 @@ const LecturerPage = () => {
   useEffect(() => {
     if(isInitialized){
       if (isSignedIn) {
-        request.get(`User/email/${googleUser.profileObj.email}`)
-        .then(res => {
-          if(res.data){
-            if(res.data.RoleIDs.includes('LC')){
-              setData(localStorage.setItem('web-user', JSON.stringify(res.data)))
-            }else{navigate('/');}
-          }
-        })
-        .catch(err => {navigate('/');})
-      }else{navigate('/')}
+        // request.get(`User/email/${googleUser.profileObj.email}`)
+        // .then(res => {
+        //   if(res.data){
+        //     if(res.data.RoleIDs.includes('LC')){
+        //       setData(localStorage.setItem('web-user', JSON.stringify(res.data)))
+        //     }else{navigate('/');}
+        //   }
+        // })
+        // .catch(err => {navigate('/');})
+      }
+      //else{navigate('/')}
     }
     
   }, [isSignedIn, googleUser, navigate, isInitialized])
@@ -35,7 +36,7 @@ const LecturerPage = () => {
       <Navbar isExtend={isExtend} setIsExtend={setIsExtend}/>
       <Stack direction='row'>
         {
-          data !== null &&
+          //data !== null &&
           <>
             <Leftbar isExtend={isExtend} user={'lecturer'} tabs={lecturerTabs}/>
             <Outlet/>

@@ -43,18 +43,18 @@ const SemesterCreate = ({ isCreate, setIsCreate, handleAfterCreate }) => {
   }, [])
 
   useEffect(() => {
-    request.get('Semester', {
-      params: {
-        sortBy: 'DateEnd', order: 'Des',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-        if (res.status === 200) {
-          setSemesters(res.data)
-        }
-      }).catch(err => {
-        alert('Fail to load semesters!')
-      })
+    // request.get('Semester', {
+    //   params: {
+    //     sortBy: 'DateEnd', order: 'Des',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //     if (res.status === 200) {
+    //       setSemesters(res.data)
+    //     }
+    //   }).catch(err => {
+    //     alert('Fail to load semesters!')
+    //   })
   }, [isCreate])
 
   const handleSelectTerm = (e) => {

@@ -19,14 +19,14 @@ const DepartmentCreate = ({isCreate, setIsCreate, afterCreate, departs}) => {
 
   //get groups of departments
   useEffect(() => {
-    request.get('DepartmentGroup', {
-      params: {pageIndex: 1, pageSize: 100}
-    }).then(res => {
-      if(res.data.length > 0){
-        setGroups(res.data)
-        setSelectedGroup(res.data[0]?.Id)
-      }
-    }).catch(err => {alert('Fail to get department groups')})
+    // request.get('DepartmentGroup', {
+    //   params: {pageIndex: 1, pageSize: 100}
+    // }).then(res => {
+    //   if(res.data.length > 0){
+    //     setGroups(res.data)
+    //     setSelectedGroup(res.data[0]?.Id)
+    //   }
+    // }).catch(err => {alert('Fail to get department groups')})
   }, [])
 
   const saveCreate = () => {

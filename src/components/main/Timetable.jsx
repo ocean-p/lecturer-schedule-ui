@@ -34,54 +34,54 @@ const Timetable = ({ selectedSemester, selectedWeekObj, lecturerId, popUp, isSwa
 
   //get schedule is public or not
   useEffect(() => {
-    if(selectedSemester){
-      request.get('Schedule', {
-        params: { SemesterId: selectedSemester,
-          pageIndex: 1, pageSize: 1}
-      }).then(res => {
-        if(res.data.length > 0) setSchedulePublic(res.data[0].IsPublic)
-      }).catch(err => {})
-    }
+    // if(selectedSemester){
+    //   request.get('Schedule', {
+    //     params: { SemesterId: selectedSemester,
+    //       pageIndex: 1, pageSize: 1}
+    //   }).then(res => {
+    //     if(res.data.length > 0) setSchedulePublic(res.data[0].IsPublic)
+    //   }).catch(err => {})
+    // }
   }, [selectedSemester])
 
   //1. get Schedule by semester, ispublic - 2.get course assign by lecturerId, scheduleId
   useEffect(() => {
-    setLoadingCourseAssign(true)
+    //setLoadingCourseAssign(true)
     const getCourseAssign = async () => {
-      try {
-        const responseSchedule = await request.get('Schedule', {
-          params: {
-            IsPublic: isPublic ? 1 : '',
-            SemesterId: selectedSemester,
-            pageIndex: 1, pageSize: 1
-          }
-        })
-        if(responseSchedule.data.length > 0){
-          const scheduleId = responseSchedule.data[0].Id;
-          const responseCourseAssign = await request.get('CourseAssign', {
-            params: {
-              LecturerId: lecturerId, ScheduleId: scheduleId,
-              pageIndex: 1, pageSize: 50
-            }
-          })
-          if(responseCourseAssign.data){
-            if(overTen){
-              setCourseAssign([])
-              setLoadingCourseAssign(false)
-              return
-            }
-            setCourseAssign(responseCourseAssign.data)
-            setLoadingCourseAssign(false)
-          }
-        }
-        else{
-          setLoadingCourseAssign(false)
-        }
-      }
-      catch (error) {
-        alert('Fail to load Schedule!')
-        setLoadingCourseAssign(false)
-      }
+      // try {
+      //   const responseSchedule = await request.get('Schedule', {
+      //     params: {
+      //       IsPublic: isPublic ? 1 : '',
+      //       SemesterId: selectedSemester,
+      //       pageIndex: 1, pageSize: 1
+      //     }
+      //   })
+      //   if(responseSchedule.data.length > 0){
+      //     const scheduleId = responseSchedule.data[0].Id;
+      //     const responseCourseAssign = await request.get('CourseAssign', {
+      //       params: {
+      //         LecturerId: lecturerId, ScheduleId: scheduleId,
+      //         pageIndex: 1, pageSize: 50
+      //       }
+      //     })
+      //     if(responseCourseAssign.data){
+      //       if(overTen){
+      //         setCourseAssign([])
+      //         setLoadingCourseAssign(false)
+      //         return
+      //       }
+      //       setCourseAssign(responseCourseAssign.data)
+      //       setLoadingCourseAssign(false)
+      //     }
+      //   }
+      //   else{
+      //     setLoadingCourseAssign(false)
+      //   }
+      // }
+      // catch (error) {
+      //   alert('Fail to load Schedule!')
+      //   setLoadingCourseAssign(false)
+      // }
     }
 
     if(selectedSemester && lecturerId){
@@ -96,23 +96,23 @@ const Timetable = ({ selectedSemester, selectedWeekObj, lecturerId, popUp, isSwa
   //get slottype list
   useEffect(() => {
     const getSlotType = async () => {
-      setLoadingSlotType(true)
+      //setLoadingSlotType(true)
       if(selectedSemester){
-        try {
-          const response = await request.get('SlotType', {
-            params: {
-              SemesterId: selectedSemester,
-              pageIndex: 1, pageSize: 50
-            }
-          })
-          if (response.status === 200) {
-            setSlotType(response.data)
-            setLoadingSlotType(false)
-          }
-        }
-        catch (error) {
-          alert('Fail to load slot type')
-        }
+        // try {
+        //   const response = await request.get('SlotType', {
+        //     params: {
+        //       SemesterId: selectedSemester,
+        //       pageIndex: 1, pageSize: 50
+        //     }
+        //   })
+        //   if (response.status === 200) {
+        //     setSlotType(response.data)
+        //     setLoadingSlotType(false)
+        //   }
+        // }
+        // catch (error) {
+        //   alert('Fail to load slot type')
+        // }
       }
     }
 

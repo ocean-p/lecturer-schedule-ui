@@ -13,37 +13,37 @@ const DepartmentManager = () => {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    setLoad(true)
-    request.get('Department', {
-      params: {
-        sortBy: 'Id', order: 'Asc',
-        pageIndex: 1, pageSize: 1000
-      }
-    })
-      .then(res => {
-        if (res.data) {
-          setDepartments(res.data);
-          setLoad(false)
-        }
-      })
-      .catch(err => {
-        alert('Fail to load departments')
-        setLoad(false)
-      })
+    // setLoad(true)
+    // request.get('Department', {
+    //   params: {
+    //     sortBy: 'Id', order: 'Asc',
+    //     pageIndex: 1, pageSize: 1000
+    //   }
+    // })
+    //   .then(res => {
+    //     if (res.data) {
+    //       setDepartments(res.data);
+    //       setLoad(false)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load departments')
+    //     setLoad(false)
+    //   })
   }, [])
 
   useEffect(() => {
-    request.get('User', {
-      params:{RoleIDs: 'DMA',pageIndex: 1, pageSize: 100}
-    })
-    .then(res => {
-      if(res.data){
-        setManagers(res.data)
-      }
-    })
-    .catch(err => {
-      alert('Fail to load managers')
-    })
+    // request.get('User', {
+    //   params:{RoleIDs: 'DMA',pageIndex: 1, pageSize: 100}
+    // })
+    // .then(res => {
+    //   if(res.data){
+    //     setManagers(res.data)
+    //   }
+    // })
+    // .catch(err => {
+    //   alert('Fail to load managers')
+    // })
   }, [])
 
 

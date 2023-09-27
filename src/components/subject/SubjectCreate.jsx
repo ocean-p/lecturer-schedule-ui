@@ -27,12 +27,12 @@ const SubjectCreate = ({isCreate, setIsCreate, afterCreate, departments}) => {
 
   //get subjects
   useEffect(() => {
-    request.get('Subject', {params: {pageIndex: 1, pageSize: 500}})
-      .then(res => {
-        if (res.data.length > 0) {
-          setSubjects(res.data)
-        }
-      })
+    // request.get('Subject', {params: {pageIndex: 1, pageSize: 500}})
+    //   .then(res => {
+    //     if (res.data.length > 0) {
+    //       setSubjects(res.data)
+    //     }
+    //   })
   }, [])
 
   const createSubject = () => {

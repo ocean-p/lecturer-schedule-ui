@@ -17,13 +17,14 @@ const Navbar = ({ isExtend, setIsExtend }) => {
   
   useEffect(() => {
     if(googleUser){
-      request.post(`Token/Login?email=${googleUser?.profileObj?.email}`)
-      .then(res => {
-        if(res.status === 200 || res.status === 201){
-          setKey(`${res.data.refresh_token}`)
-        }
-      })
-      .catch(err => {alert('Fail to get key')})
+      setKey('adjaskjdklaj')
+      // request.post(`Token/Login?email=${googleUser?.profileObj?.email}`)
+      // .then(res => {
+      //   if(res.status === 200 || res.status === 201){
+      //     setKey(`${res.data.refresh_token}`)
+      //   }
+      // })
+      // .catch(err => {alert('Fail to get key')})
     }
   }, [googleUser])
 

@@ -16,23 +16,23 @@ const Slot = () => {
 
   //get semester lists
   useEffect(() => {
-    const getSemesters = async () => {
-      try {
-        const response = await request.get('Semester', {
-          params: {sortBy: 'DateEnd', order: 'Des',
-            pageIndex: 1, pageSize: 100
-          }
-        })
-        if (response.status === 200) {
-          setSemesters(response.data)
-        }
-      }
-      catch (error) {
-        alert('Fail to load Semester!')
-      }
-    }
+    // const getSemesters = async () => {
+    //   try {
+    //     const response = await request.get('Semester', {
+    //       params: {sortBy: 'DateEnd', order: 'Des',
+    //         pageIndex: 1, pageSize: 100
+    //       }
+    //     })
+    //     if (response.status === 200) {
+    //       setSemesters(response.data)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load Semester!')
+    //   }
+    // }
 
-    getSemesters();
+    // getSemesters();
   }, [])
 
   //get current semester
@@ -56,22 +56,22 @@ const Slot = () => {
 
   //get list slots
   useEffect(() => {
-    setLoad(true)
-    if (selectedSemester) {
-      request.get('SlotType', {
-        params: { SemesterId: selectedSemester, sortBy: 'DayOfWeekAndTimeStart',
-          order: 'Asc', pageIndex: 1, pageSize: 100,
-        }
-      }).then(res => {
-        if (res.status === 200) {
-          setSlots(res.data)
-          setLoad(false)
-        }
-      }).catch(err => {
-        alert('Fail to load slot!')
-        setLoad(false)
-      })
-    }
+    // setLoad(true)
+    // if (selectedSemester) {
+    //   request.get('SlotType', {
+    //     params: { SemesterId: selectedSemester, sortBy: 'DayOfWeekAndTimeStart',
+    //       order: 'Asc', pageIndex: 1, pageSize: 100,
+    //     }
+    //   }).then(res => {
+    //     if (res.status === 200) {
+    //       setSlots(res.data)
+    //       setLoad(false)
+    //     }
+    //   }).catch(err => {
+    //     alert('Fail to load slot!')
+    //     setLoad(false)
+    //   })
+    // }
   }, [selectedSemester])
 
   const changeSemester = (e) => {

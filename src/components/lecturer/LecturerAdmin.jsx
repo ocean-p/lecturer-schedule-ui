@@ -21,43 +21,43 @@ const LecturerAdmin = () => {
 
   //get list departments
   useEffect(() => {
-    request.get('Department', {
-      params: { sortBy: 'Id', order:'Asc',
-        pageIndex: 1, pageSize: 1000
-      }
-    })
-    .then(res => {
-      if(res.data.length > 0){
-        setDepartments(res.data);
-      }
-    })
-    .catch(err => {
-      alert('Fail to load departments')
-    })
+    // request.get('Department', {
+    //   params: { sortBy: 'Id', order:'Asc',
+    //     pageIndex: 1, pageSize: 1000
+    //   }
+    // })
+    // .then(res => {
+    //   if(res.data.length > 0){
+    //     setDepartments(res.data);
+    //   }
+    // })
+    // .catch(err => {
+    //   alert('Fail to load departments')
+    // })
   }, [])
 
   //get list lecturers by selectedDepartment
   useEffect(() => {
-    setLoad(true)
-    if(selectedDepartment){
-      request.get('User', {
-        params: {
-          DepartmentId: selectedDepartment === 'all' ? '' : selectedDepartment,
-          RoleIDs: 'LC', sortBy:'DepartmentId', order:'Asc',
-          pageIndex: 1, pageSize: 500
-        }
-      })
-      .then(res => {
-        if(res.data){
-          setLecturers(res.data)
-          setLoad(false)
-        }
-      })
-      .catch(err => {
-        alert('Fail to load lecturers');
-        setLoad(false)
-      })
-    }
+    // setLoad(true)
+    // if(selectedDepartment){
+    //   request.get('User', {
+    //     params: {
+    //       DepartmentId: selectedDepartment === 'all' ? '' : selectedDepartment,
+    //       RoleIDs: 'LC', sortBy:'DepartmentId', order:'Asc',
+    //       pageIndex: 1, pageSize: 500
+    //     }
+    //   })
+    //   .then(res => {
+    //     if(res.data){
+    //       setLecturers(res.data)
+    //       setLoad(false)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load lecturers');
+    //     setLoad(false)
+    //   })
+    // }
   }, [selectedDepartment])
 
   const handleChangePage = (event, newPage) => {

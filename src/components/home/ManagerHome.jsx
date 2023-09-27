@@ -17,61 +17,61 @@ const ManagerHome = ({admin}) => {
 
   //get current semester
   useEffect(() => {
-    request.get('Semester', {
-      params: {
-        sortBy: 'DateEnd', order: 'Des',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data.length > 0) {
-        const data = res.data
-        for (let i in data) {
-          if (data[i].DateStatus.toLowerCase() === 'on going') {
-            setSemester(data[i]);
-            break;
-          }
-        }
-      }
-    }).catch(err => {alert('Fail to load semesters!')})
+    // request.get('Semester', {
+    //   params: {
+    //     sortBy: 'DateEnd', order: 'Des',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data.length > 0) {
+    //     const data = res.data
+    //     for (let i in data) {
+    //       if (data[i].DateStatus.toLowerCase() === 'on going') {
+    //         setSemester(data[i]);
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }).catch(err => {alert('Fail to load semesters!')})
   }, [])
 
   //get list departments
   useEffect(() => {
-    request.get('Department', {
-      params: {
-        sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if(res.data){
-        setDepartments(res.data);
-      }
-    }).catch(err => alert('Fail to load departments'))
+    // request.get('Department', {
+    //   params: {
+    //     sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if(res.data){
+    //     setDepartments(res.data);
+    //   }
+    // }).catch(err => alert('Fail to load departments'))
   }, [])
 
   //get list subjects
   useEffect(() => {
-    request.get('Subject', {
-      params: {
-        sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
-      }
-    }).then(res => {
-      if(res.data){
-        setSubjects(res.data);
-      }
-    }).catch(err => alert('Fail to load subjects'))
+    // request.get('Subject', {
+    //   params: {
+    //     sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //   }
+    // }).then(res => {
+    //   if(res.data){
+    //     setSubjects(res.data);
+    //   }
+    // }).catch(err => alert('Fail to load subjects'))
   }, [])
 
   //get list lecturers
   useEffect(() => {
-    request.get('User', {
-      params: {
-        RoleIDs: 'LC', sortBy: 'Name', order: 'Asc', pageIndex: 1, pageSize: 1000
-      }
-    }).then(res => {
-      if(res.data){
-        setLecturers(res.data);
-      }
-    }).catch(err => alert('Fail to load lecturers'))
+    // request.get('User', {
+    //   params: {
+    //     RoleIDs: 'LC', sortBy: 'Name', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //   }
+    // }).then(res => {
+    //   if(res.data){
+    //     setLecturers(res.data);
+    //   }
+    // }).catch(err => alert('Fail to load lecturers'))
   }, [])
 
   const toSemester = () => {
@@ -97,7 +97,7 @@ const ManagerHome = ({admin}) => {
   return (
     <Stack flex={5} height='90vh' overflow='auto'>
       <Typography px={9} variant='h5' mt={1} mb={6}>
-        Welcome {admin ? 'Admin' : 'Department Manager'}, {account.Name}
+        Welcome {admin ? 'Admin' : 'Department Manager'},
       </Typography>
       <Stack direction='row' px={9} gap={2} flexWrap='wrap' mb={4}>
         <Stack flex={1} className='summary-box' alignItems='center'>
