@@ -1,0 +1,28 @@
+.timetable-time{
+  color: white;
+  border-bottom: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3;
+  text-align: center;
+}
+
+.time-title{
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+.timetable-slot{
+  border: 1px solid #e3e3e3;
+  border-top: none;
+  border-left: none;
+  /* background-color: #f8f8ff; */
+}
+
+.is-sunday{
+  background-color: gray;
+  opacity: 0.2;
+}
+
+.swap-on:hover{
+  cursor: pointer;
+  background-color: #bbdefb;
+}
