@@ -14,29 +14,29 @@ const RegisteredSubject = ({ semesterId }) => {
   
   //get subject of lecturer
   useEffect(() => {
-    if(semesterId && account.Id){
-      setLoad(true)
-      request.get('SubjectOfLecturer', {
-        params: {SemesterId: semesterId, LecturerId: account.Id, isEnable: 1, 
-          sortBy: 'SubjectId', order: 'Asc', pageIndex:1, pageSize:100}
-      }).then(res => {
-        if(res.data.length > 0){
-          setRegisSubs(res.data)
-          setLoad(false)
-        }
-      }).catch(err => {alert('Fail to get registered subjects'); setLoad(false)})
-    }
-  }, [semesterId, account.Id])
+    // if(semesterId && account.Id){
+    //   setLoad(true)
+    //   request.get('SubjectOfLecturer', {
+    //     params: {SemesterId: semesterId, LecturerId: account.Id, isEnable: 1, 
+    //       sortBy: 'SubjectId', order: 'Asc', pageIndex:1, pageSize:100}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setRegisSubs(res.data)
+    //       setLoad(false)
+    //     }
+    //   }).catch(err => {alert('Fail to get registered subjects'); setLoad(false)})
+    // }
+  }, [semesterId, account?.Id])
 
   //get subjects
   useEffect(() => {
-    request.get('Subject', {
-      params: {sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 500}
-    }).then(res => {
-      if(res.data.length > 0){
-        setSubs(res.data)
-      }
-    }).catch(err => {alert('Fail to get subjects')})
+    // request.get('Subject', {
+    //   params: {sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 500}
+    // }).then(res => {
+    //   if(res.data.length > 0){
+    //     setSubs(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get subjects')})
   }, [])
 
   //set rows = subject.length

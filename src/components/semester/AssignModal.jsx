@@ -9,7 +9,7 @@ import request from '../../utils/request';
 
 const AssignModal = ({ isAssign, setIsAssign, selectedCourse, semesterId, scheduleId, assignedCourses, afterAssign }) => {
   const account = JSON.parse(localStorage.getItem('web-user'));
-  const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  const [selectedDepartment, setSelectedDepartment] = useState(account?.DepartmentId);
   const [departments, setDepartments] = useState([]);
   const [lecturers, setLecturers] = useState([]);
   const [selectedLecturer, setSelectedLecturer] = useState({});
@@ -51,116 +51,116 @@ const AssignModal = ({ isAssign, setIsAssign, selectedCourse, semesterId, schedu
 
   // get lecturers registered subject of selected course
   useEffect(() => {
-    if(selectedCourse && semesterId){
-      const subjectId = selectedCourse.split('_')[0]
-      request.get('SubjectOfLecturer', {
-        params: {SemesterId: semesterId, SubjectId: subjectId, isEnable: 1, 
-          pageIndex: 1, pageSize: 100}
-      }).then(res => {
-        if(res.status === 200){
-          setSubjectOfLecs(res.data);
-        }
-      }).catch(err => {alert('Fail to get lecturers who registered the subject of this course')})
-    }
+    // if(selectedCourse && semesterId){
+    //   const subjectId = selectedCourse.split('_')[0]
+    //   request.get('SubjectOfLecturer', {
+    //     params: {SemesterId: semesterId, SubjectId: subjectId, isEnable: 1, 
+    //       pageIndex: 1, pageSize: 100}
+    //   }).then(res => {
+    //     if(res.status === 200){
+    //       setSubjectOfLecs(res.data);
+    //     }
+    //   }).catch(err => {alert('Fail to get lecturers who registered the subject of this course')})
+    // }
   }, [selectedCourse, semesterId])
 
   //get departments by group
   useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentList = await request.get('Department', {
-          params: {
-            DepartmentGroupId: response.data.DepartmentGroupId,
-            pageIndex: 1, pageSize: 1000
-          }
-        })
-        if (departmentList.data) { setDepartments(departmentList.data) }
-      }
-      catch (error) { alert('Fail to get Department!') }
-    }
+    // const getDepartments = async () => {
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentList = await request.get('Department', {
+    //       params: {
+    //         DepartmentGroupId: response.data.DepartmentGroupId,
+    //         pageIndex: 1, pageSize: 1000
+    //       }
+    //     })
+    //     if (departmentList.data) { setDepartments(departmentList.data) }
+    //   }
+    //   catch (error) { alert('Fail to get Department!') }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  }, [account?.DepartmentId])
 
   //get lecturers by selected department
   useEffect(() => {
-    setLoadLecturer(true)
-    request.get('User', {
-      params: {
-        DepartmentId: selectedDepartment, RoleIDs: 'LC', sortBy: 'Id', order: 'Asc',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data) {
-        setLecturers(res.data)
-        setLoadLecturer(false)
-      }
-    }).catch(err => alert('Fail to load lecturers'))
+    // setLoadLecturer(true)
+    // request.get('User', {
+    //   params: {
+    //     DepartmentId: selectedDepartment, RoleIDs: 'LC', sortBy: 'Id', order: 'Asc',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data) {
+    //     setLecturers(res.data)
+    //     setLoadLecturer(false)
+    //   }
+    // }).catch(err => alert('Fail to load lecturers'))
   }, [selectedDepartment])
 
   //get disables slots of lecturer
   useEffect(() => {
-    if(selectedLecturer.Id && semesterId){
-      request.get('LecturerSlotConfig', {
-        params: {
-          LecturerId: selectedLecturer.Id, SemesterId: semesterId, 
-          IsEnable: 0, pageIndex: 1, pageSize:100
-        }
-      }).then(res => {
-        if(res.data){
-          setDisableSlots(res.data)
-        }
-      }).catch(err => {
-        alert('Fail to load disable slots')
-      }) 
-    }
-  }, [selectedLecturer.Id, semesterId, isAssign])
+    // if(selectedLecturer.Id && semesterId){
+    //   request.get('LecturerSlotConfig', {
+    //     params: {
+    //       LecturerId: selectedLecturer.Id, SemesterId: semesterId, 
+    //       IsEnable: 0, pageIndex: 1, pageSize:100
+    //     }
+    //   }).then(res => {
+    //     if(res.data){
+    //       setDisableSlots(res.data)
+    //     }
+    //   }).catch(err => {
+    //     alert('Fail to load disable slots')
+    //   }) 
+    // }
+  }, [selectedLecturer?.Id, semesterId, isAssign])
 
   //get my assigned courses
   useEffect(() => {
-    if(selectedLecturer.Id && scheduleId){
-      request.get('CourseAssign', {
-        params: {
-          LecturerId: selectedLecturer.Id, ScheduleId: scheduleId,
-          pageIndex: 1, pageSize: 1000
-        }
-      }).then(res => {
-        if(res.data) {
-          setMyCourses(res.data)
-        }
-      }).catch(err => alert('Fail to get my assigned courses'))
-    }
-  }, [selectedLecturer.Id, scheduleId, isAssign])
+    // if(selectedLecturer.Id && scheduleId){
+    //   request.get('CourseAssign', {
+    //     params: {
+    //       LecturerId: selectedLecturer.Id, ScheduleId: scheduleId,
+    //       pageIndex: 1, pageSize: 1000
+    //     }
+    //   }).then(res => {
+    //     if(res.data) {
+    //       setMyCourses(res.data)
+    //     }
+    //   }).catch(err => alert('Fail to get my assigned courses'))
+    // }
+  }, [selectedLecturer?.Id, scheduleId, isAssign])
 
   //get slots type by semesterId
   useEffect(() => {
-    setLoadSlot(true);
-    if(semesterId){
-      request.get('SlotType', {
-        params: {
-          SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
-          pageIndex: 1, pageSize: 100,
-        }
-      }).then(res => {
-        if (res.data) {
-          let dataSlot = res.data; 
-          for(let i in myCourses){
-            dataSlot = dataSlot.filter(data => data.Id !== myCourses[i].SlotTypeId)
-          }
-          for(let i in courseTime){
-            dataSlot = dataSlot.filter(data => data.Id !== courseTime[i])
-          }
-          for(let i in disableSlots){
-            dataSlot = dataSlot.filter(data => data.Id !== disableSlots[i].SlotTypeId)
-          }
-          setSlots(dataSlot)
-          setTimeout(() => {
-            setLoadSlot(false); 
-          }, 200)
-        }
-      }).catch(err => alert('Fail to load slots'))
-    }
+    // setLoadSlot(true);
+    // if(semesterId){
+    //   request.get('SlotType', {
+    //     params: {
+    //       SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100,
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       let dataSlot = res.data; 
+    //       for(let i in myCourses){
+    //         dataSlot = dataSlot.filter(data => data.Id !== myCourses[i].SlotTypeId)
+    //       }
+    //       for(let i in courseTime){
+    //         dataSlot = dataSlot.filter(data => data.Id !== courseTime[i])
+    //       }
+    //       for(let i in disableSlots){
+    //         dataSlot = dataSlot.filter(data => data.Id !== disableSlots[i].SlotTypeId)
+    //       }
+    //       setSlots(dataSlot)
+    //       setTimeout(() => {
+    //         setLoadSlot(false); 
+    //       }, 200)
+    //     }
+    //   }).catch(err => alert('Fail to load slots'))
+    // }
   }, [semesterId, myCourses, courseTime, disableSlots])
 
   const handleSelectDepartment = (e) => {
@@ -246,7 +246,7 @@ const AssignModal = ({ isAssign, setIsAssign, selectedCourse, semesterId, schedu
               <Tooltip title='My Department' placement='top' arrow>
                 <Beenhere onClick={myDepartment}
                   sx={{
-                    fontSize: '24px', color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+                    fontSize: '24px', color: selectedDepartment === account?.DepartmentId ? green[600] : grey[400],
                     '&:hover': { cursor: 'pointer', color: green[600] }
                   }}
                 />

@@ -12,7 +12,7 @@ const LecturerList = ({ handleSelect, admin, scheduleId, isSelected, semester, m
   const account = JSON.parse(localStorage.getItem('web-user'));
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [selectedDepartment, setSelectedDepartment] = useState(account.DepartmentId);
+  const [selectedDepartment, setSelectedDepartment] = useState(account?.DepartmentId);
   const [departments, setDepartments] = useState([]);
   const [lecturers, setlecturers] = useState([]);
   const [assignCourses, setAssignCourses] = useState([]);
@@ -24,54 +24,54 @@ const LecturerList = ({ handleSelect, admin, scheduleId, isSelected, semester, m
 
   //get departments
   useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        if (admin) {
-          const departmentList = await request.get('Department', {
-            params: {
-              sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
-            }
-          })
-          if (departmentList.data) {
-            setDepartments(departmentList.data)
-            setSelectedDepartment(departmentList.data[0]?.Id)
-          }
-        }
-        else {
-          const response = await request.get(`Department/${account.DepartmentId}`);
-          const departmentList = await request.get('Department', {
-            params: {
-              DepartmentGroupId: response.data.DepartmentGroupId,
-              sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
-            }
-          })
-          if (departmentList.data) {
-            setDepartments(departmentList.data)
-          }
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-      }
-    }
-    getDepartments();
-  }, [account.DepartmentId, admin])
+    // const getDepartments = async () => {
+    //   try {
+    //     if (admin) {
+    //       const departmentList = await request.get('Department', {
+    //         params: {
+    //           sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //         }
+    //       })
+    //       if (departmentList.data) {
+    //         setDepartments(departmentList.data)
+    //         setSelectedDepartment(departmentList.data[0]?.Id)
+    //       }
+    //     }
+    //     else {
+    //       const response = await request.get(`Department/${account.DepartmentId}`);
+    //       const departmentList = await request.get('Department', {
+    //         params: {
+    //           DepartmentGroupId: response.data.DepartmentGroupId,
+    //           sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 1000
+    //         }
+    //       })
+    //       if (departmentList.data) {
+    //         setDepartments(departmentList.data)
+    //       }
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //   }
+    // }
+    // getDepartments();
+  }, [account?.DepartmentId, admin])
 
   //get lecturers by department
   useEffect(() => {
-    setLoad(true)
-    if(selectedDepartment){
-      request.get('User', {
-        params: {DepartmentId: selectedDepartment, RoleIDs: 'LC', sortBy: 'DepartmentId', 
-          order: 'Asc', pageIndex: 1, pageSize: 500
-        }
-      }).then(res => {
-        if (res.data) {
-          setlecturers(res.data)
-          setLoad(false)
-        }
-      }).catch(err => {alert('Fail to load lecturers'); setLoad(false)})
-    }
+    // setLoad(true)
+    // if(selectedDepartment){
+    //   request.get('User', {
+    //     params: {DepartmentId: selectedDepartment, RoleIDs: 'LC', sortBy: 'DepartmentId', 
+    //       order: 'Asc', pageIndex: 1, pageSize: 500
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setlecturers(res.data)
+    //       setLoad(false)
+    //     }
+    //   }).catch(err => {alert('Fail to load lecturers'); setLoad(false)})
+    // }
   }, [selectedDepartment])
 
   //set rows equal lecturers length
@@ -83,29 +83,29 @@ const LecturerList = ({ handleSelect, admin, scheduleId, isSelected, semester, m
 
   //get all assign course after generate schedule
   useEffect(() => {
-    if(scheduleId){
-      request.get('CourseAssign', {
-        params: {ScheduleId: scheduleId, sortBy: 'LecturerId', 
-          order: 'Asc', pageIndex: 1, pageSize: 500}
-      }).then(res => {
-        if(res.data.length > 0){
-          setAssignCourses(res.data)
-        }
-      }).catch(err => {alert('Fail to get assigned courses of lecturers')})
-    }
+    // if(scheduleId){
+    //   request.get('CourseAssign', {
+    //     params: {ScheduleId: scheduleId, sortBy: 'LecturerId', 
+    //       order: 'Asc', pageIndex: 1, pageSize: 500}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setAssignCourses(res.data)
+    //     }
+    //   }).catch(err => {alert('Fail to get assigned courses of lecturers')})
+    // }
   }, [scheduleId, isSelected, refresh, semester.State])
 
   //get lecturer course group to show min max course
   useEffect(() => {
-    if(semester.Id){
-      request.get('LecturerCourseGroup', {
-        params: {SemesterId: semester.Id, pageIndex:1, pageSize:100}
-      }).then(res => {
-        if(res.data.length > 0){
-          setLecCourseGroups(res.data)
-        }
-      }).catch(err => {alert('Fail to get min max course of lecturer')})
-    }
+    // if(semester.Id){
+    //   request.get('LecturerCourseGroup', {
+    //     params: {SemesterId: semester.Id, pageIndex:1, pageSize:100}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setLecCourseGroups(res.data)
+    //     }
+    //   }).catch(err => {alert('Fail to get min max course of lecturer')})
+    // }
   }, [semester.Id, isSelected, refresh, semester.State])
 
   const handleChangePage = (event, newPage) => {
@@ -191,12 +191,12 @@ const LecturerList = ({ handleSelect, admin, scheduleId, isSelected, semester, m
           </Select>
           {!admin && <Tooltip title='My Department' placement='top' arrow>
             <Beenhere onClick={myDepartment}
-              sx={{ml: 1, color: selectedDepartment === account.DepartmentId ? green[600] : grey[400],
+              sx={{ml: 1, color: selectedDepartment === account?.DepartmentId ? green[600] : grey[400],
                 fontSize: '28px', '&:hover': { cursor: 'pointer', color: green[600]}}}
             />
           </Tooltip>}
         </Stack>
-        {!admin && semester.State === 5 && account.DepartmentId === selectedDepartment && myCourseGroup.Id &&
+        {!admin && semester.State === 5 && account?.DepartmentId === selectedDepartment && myCourseGroup.Id &&
          ( myCourseGroup.GroupName === 'confirm' ? 
           <Typography color={red[600]} fontWeight={500}>Schedules have been confirmed</Typography>:
           <Button variant='contained' size='small' color='error' onClick={clickConfirm}>
@@ -213,7 +213,7 @@ const LecturerList = ({ handleSelect, admin, scheduleId, isSelected, semester, m
                   <TableCell className='subject-header'>Name</TableCell>
                   <TableCell className='subject-header'>Email</TableCell>
                   <TableCell className='subject-header' align='center'>FullTime</TableCell>
-                  {(admin || account.DepartmentId === selectedDepartment) && 
+                  {(admin || account?.DepartmentId === selectedDepartment) && 
                     (semester.State === 5 || semester.State === 6) &&
                     <TableCell className='subject-header' align='center'>
                       Courses</TableCell>}

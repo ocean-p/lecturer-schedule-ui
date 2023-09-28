@@ -38,49 +38,49 @@ const Subject = ({ semesterId, semesterState }) => {
 
   //get Subject by my department
   useEffect(() => {
-    const getSubjects = async () => {
-      setLoadSubject(true)
-      try {
-        const response = await request.get('Subject', {
-          params: { DepartmentId: account.DepartmentId, sortBy:'Id', order: 'Asc',
-            pageIndex: 1, pageSize: 1000
-          }
-        })
-        if (response.data) {
-          setSubjects(response.data)
-          setLoadSubject(false)
-        }
-      }
-      catch (error) {
-        alert('Fail to load subjects!');
-        setLoadSubject(false)
-      }
-    }
+    // const getSubjects = async () => {
+    //   setLoadSubject(true)
+    //   try {
+    //     const response = await request.get('Subject', {
+    //       params: { DepartmentId: account.DepartmentId, sortBy:'Id', order: 'Asc',
+    //         pageIndex: 1, pageSize: 1000
+    //       }
+    //     })
+    //     if (response.data) {
+    //       setSubjects(response.data)
+    //       setLoadSubject(false)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load subjects!');
+    //     setLoadSubject(false)
+    //   }
+    // }
 
-    getSubjects();
-  }, [account.DepartmentId])
+    // getSubjects();
+  }, [])
 
   //get subjectoflecturer (get point) by semesterId, lecturerId
   useEffect(() => {
-    const getFavoriteSubjects = async () => {
-      try {
-        const response = await request.get('SubjectOfLecturer', {
-          params: {SemesterId: semesterId, LecturerId: account.Id,
-            pageIndex: 1,pageSize: 1000}
-        })
-        if (response.data) {
-          setFavoriteSubjects(response.data)
-        }
-      }
-      catch (error) {
-        alert('Fail to load favortite points')
-      }
-    }
+    // const getFavoriteSubjects = async () => {
+    //   try {
+    //     const response = await request.get('SubjectOfLecturer', {
+    //       params: {SemesterId: semesterId, LecturerId: account.Id,
+    //         pageIndex: 1,pageSize: 1000}
+    //     })
+    //     if (response.data) {
+    //       setFavoriteSubjects(response.data)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load favortite points')
+    //   }
+    // }
 
-    if(semesterId && account.Id){
-      getFavoriteSubjects();
-    }
-  }, [isRating, account.Id, semesterId, isRegister])
+    // if(semesterId && account.Id){
+    //   getFavoriteSubjects();
+    // }
+  }, [isRating, semesterId, isRegister])
 
   //set number subjecs at point 1 and 5
   useEffect(() => {
@@ -155,7 +155,7 @@ const Subject = ({ semesterId, semesterState }) => {
         px={9} mb={1}>
         <Stack direction='row' alignItems='center' gap={1}>
           <Typography fontWeight={500}>Department:</Typography>
-          <Typography>{account.DepartmentName}</Typography>
+          <Typography>{}</Typography>
         </Stack>
         <Stack direction='row' alignItems='center' gap={4}>
           <Stack bgcolor={grey[100]} borderRadius={2} p={1}>

@@ -10,6 +10,7 @@ import Title from '../../title/Title'
 import LecturerContainer from '../manager/LecturerContainer'
 import Alert from '../../alert/Alert'
 import request from '../../../utils/request'
+import { semestersData } from '../../../data/Semesters';
 
 const SemesterDetailAdmin = () => {
   const navigate = useNavigate();
@@ -29,53 +30,55 @@ const SemesterDetailAdmin = () => {
 
   //set semester
   useEffect(() => {
-    request.get(`Semester/${id}`)
-      .then(res => {
-        if (res.data) {
-          setSemester(res.data);
-        }
-      })
-      .catch(err => {
-        alert('Fail to load semester')
-      })
+    const semesterData = semestersData.find(item => item.Id.toString() === id)
+    setSemester(semesterData)
+    // request.get(`Semester/${id}`)
+    //   .then(res => {
+    //     if (res.data) {
+    //       setSemester(res.data);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load semester')
+    //   })
   }, [id, isConfirm, refresh])
 
   //set schedule
   useEffect(() => {
-    request.get('Schedule', {
-      params: {SemesterId: id, pageIndex: 1, pageSize: 10}
-    })
-    .then(res => {
-      if(res.data.length > 0) setSchedule(res.data[0])
-    })
-    .catch(err => alert('Fail to get schedule'))
+    // request.get('Schedule', {
+    //   params: {SemesterId: id, pageIndex: 1, pageSize: 10}
+    // })
+    // .then(res => {
+    //   if(res.data.length > 0) setSchedule(res.data[0])
+    // })
+    // .catch(err => alert('Fail to get schedule'))
   }, [id])
 
   //get list slot types by semester
   useEffect(() => {
-    request.get('SlotType', {
-      params: {
-        SemesterId: id, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
-        pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data) setSlotTypes(res.data);
-    }).catch(err => alert('Fail to load slottype'))
+    // request.get('SlotType', {
+    //   params: {
+    //     SemesterId: id, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
+    //     pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data) setSlotTypes(res.data);
+    // }).catch(err => alert('Fail to load slottype'))
   }, [id])
 
   //get course number
   useEffect(() => {
-    setCourseNumber(0)
-    if(id){
-      request.get('Course', {
-        params: {SemesterId: id, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 1000}
-      }).then(res => {
-        if(res.data.length > 0){
-          setCourseNumber(res.data.length)
-        }
-      }).catch(err => {alert('Fail to get course number')})
-    }
+    // setCourseNumber(0)
+    // if(id){
+    //   request.get('Course', {
+    //     params: {SemesterId: id, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 1000}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setCourseNumber(res.data.length)
+    //     }
+    //   }).catch(err => {alert('Fail to get course number')})
+    // }
   }, [id, reloadCourseNumber])
 
   const backToSemester = () => {
@@ -99,21 +102,21 @@ const SemesterDetailAdmin = () => {
     else if(semester.State === 2) setContent('Next state is Evaluating. Department Managers can evaluate subjects, courses and slots to Lecturers. ')
     else if(semester.State === 3) setContent('Next state is Blocked. All functions are blocked to begin generating schedule.')
     else if(semester.State === 4){
-      request.get('CourseAssign', {
-        params: {ScheduleId: schedule.Id ,isAssign: 0, 
-          pageIndex: 1, pageSize: 1000}
-      }).then(res => {
-        if(res.status === 200){
-          if(res.data.length > 0){
-            setContent('Next state is Adjusting. The schedule will be shown for Lecturers and Department Managers. The Managers can adjust the schedule.')
-            setIsConfirm(true);
-          }
-          else{
-            setContentAlert('Please send schedule from winform app before changing to Adjusting state.')
-            setIsAlert(true)
-          }
-        }
-      }).catch(err => {})
+      // request.get('CourseAssign', {
+      //   params: {ScheduleId: schedule.Id ,isAssign: 0, 
+      //     pageIndex: 1, pageSize: 1000}
+      // }).then(res => {
+      //   if(res.status === 200){
+      //     if(res.data.length > 0){
+      //       setContent('Next state is Adjusting. The schedule will be shown for Lecturers and Department Managers. The Managers can adjust the schedule.')
+      //       setIsConfirm(true);
+      //     }
+      //     else{
+      //       setContentAlert('Please send schedule from winform app before changing to Adjusting state.')
+      //       setIsAlert(true)
+      //     }
+      //   }
+      // }).catch(err => {})
     } 
     else{
       checkPublic();
@@ -140,80 +143,83 @@ const SemesterDetailAdmin = () => {
     if(semester.State === 6) return;
 
     if(semester.State === 5){
-      request.put(`Schedule/${schedule.Id}`, {
-        IsPublic: 1, SemesterId: id,
-        Description: '', DateCreate: ''
-      }).then(res => {
+      // request.put(`Schedule/${schedule.Id}`, {
+      //   IsPublic: 1, SemesterId: id,
+      //   Description: '', DateCreate: ''
+      // }).then(res => {
 
-      }).catch(err => {alert('Fail to public schedule')})
+      // }).catch(err => {alert('Fail to public schedule')})
     }
 
     if(semester.State === 3){
-      request.put(`Request/UpdateAllRequestWaiting/${semester.Id}`)
-      .then(res => {
+      // request.put(`Request/UpdateAllRequestWaiting/${semester.Id}`)
+      // .then(res => {
 
-      })
-      .catch(err => {})
+      // })
+      // .catch(err => {})
     }
 
     if(semester.State === 4){
-      request.put(`LecturerCourseGroup/UpdateAllGroupNameNotConfirm/${id}`)
-      .then(res => {})
+      // request.put(`LecturerCourseGroup/UpdateAllGroupNameNotConfirm/${id}`)
+      // .then(res => {})
     }
 
-    request.put(`Semester/${id}`, {
-      Term: semester.Term, DateStart: semester.DateStart,
-      DateEnd: semester.DateEnd, State: (semester.State + 1)
-    }).then(res => {
-      if (res.status === 200) {
-        setIsConfirm(false)
-        toast.success('Success to change next state!', {
-          position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true,
-          pauseOnHover: true, draggable: true, progress: undefined, theme: "light",
-        });
-      }
-    }).catch(err => {
-      alert('Fail to change next state')
-      setIsConfirm(false)
-    })
+    // request.put(`Semester/${id}`, {
+    //   Term: semester.Term, DateStart: semester.DateStart,
+    //   DateEnd: semester.DateEnd, State: (semester.State + 1)
+    // }).then(res => {
+    //   if (res.status === 200) {
+    //     setIsConfirm(false)
+    //     toast.success('Success to change next state!', {
+    //       position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true,
+    //       pauseOnHover: true, draggable: true, progress: undefined, theme: "light",
+    //     });
+    //   }
+    // }).catch(err => {
+    //   alert('Fail to change next state')
+    //   setIsConfirm(false)
+    // })
+
+    setIsConfirm(false)
   }
 
   const savePrevState = () => {
     if(semester.State === 1) return;
 
     if(semester.State === 6){
-      request.put(`Schedule/${schedule.Id}`, {
-        IsPublic: 0, SemesterId: id,
-        Description: '', DateCreate: ''
-      }).then(res => {})
+      // request.put(`Schedule/${schedule.Id}`, {
+      //   IsPublic: 0, SemesterId: id,
+      //   Description: '', DateCreate: ''
+      // }).then(res => {})
 
-      request.put(`LecturerCourseGroup/UpdateAllGroupNameNotConfirm/${id}`)
-      .then(res => {})
+      // request.put(`LecturerCourseGroup/UpdateAllGroupNameNotConfirm/${id}`)
+      // .then(res => {})
     }
 
     if(semester.State === 4){
-      request.put(`Request/RollBackToUpdateAllRequestWaiting/${semester.Id}`)
-      .then(res => {
+      // request.put(`Request/RollBackToUpdateAllRequestWaiting/${semester.Id}`)
+      // .then(res => {
 
-      })
-      .catch(err => {alert('Fail to return state of request')})
+      // })
+      // .catch(err => {alert('Fail to return state of request')})
     }
 
-    request.put(`Semester/${id}`, {
-      Term: semester.Term, DateStart: semester.DateStart,
-      DateEnd: semester.DateEnd, State: (semester.State - 1)
-    }).then(res => {
-      if (res.status === 200) {
-        setIsConfirm(false)
-        toast.success('Success to return previous state', {
-          position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true,
-          pauseOnHover: true, draggable: true, progress: undefined, theme: "light",
-        });
-      }
-    }).catch(err => {
-      alert('Fail to return previous state')
-      setIsConfirm(false)
-    })
+    // request.put(`Semester/${id}`, {
+    //   Term: semester.Term, DateStart: semester.DateStart,
+    //   DateEnd: semester.DateEnd, State: (semester.State - 1)
+    // }).then(res => {
+    //   if (res.status === 200) {
+    //     setIsConfirm(false)
+    //     toast.success('Success to return previous state', {
+    //       position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true,
+    //       pauseOnHover: true, draggable: true, progress: undefined, theme: "light",
+    //     });
+    //   }
+    // }).catch(err => {
+    //   alert('Fail to return previous state')
+    //   setIsConfirm(false)
+    // })
+    setIsConfirm(false)
   }
 
   const checkPublic = async() => {

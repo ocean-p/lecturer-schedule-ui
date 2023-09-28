@@ -25,60 +25,60 @@ const RequestModal = ({ isRequest, setIsRequest, requests, semesterId, sendReque
 
   //get list department
   useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentList = await request.get('Department', {
-          params: {
-            DepartmentGroupId: response.data.DepartmentGroupId, sortBy: 'Id', order: 'Asc',
-            pageIndex: 1, pageSize: 100
-          }
-        })
-        if(departmentList.data.length > 0){
-          let dataDepart = departmentList.data
-          dataDepart = dataDepart.filter(item => item.Id !== account.DepartmentId)
-          setDepartments(dataDepart)
-          setSelectedDepartment(dataDepart[0]?.Id)
-        }
-      }
-      catch (error) {alert('Fail to get Department!' + error)}
-    }
+    // const getDepartments = async () => {
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentList = await request.get('Department', {
+    //       params: {
+    //         DepartmentGroupId: response.data.DepartmentGroupId, sortBy: 'Id', order: 'Asc',
+    //         pageIndex: 1, pageSize: 100
+    //       }
+    //     })
+    //     if(departmentList.data.length > 0){
+    //       let dataDepart = departmentList.data
+    //       dataDepart = dataDepart.filter(item => item.Id !== account.DepartmentId)
+    //       setDepartments(dataDepart)
+    //       setSelectedDepartment(dataDepart[0]?.Id)
+    //     }
+    //   }
+    //   catch (error) {alert('Fail to get Department!' + error)}
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  }, [account?.DepartmentId])
 
   //get manager by department
   useEffect(() => {
-    if(selectedDepartment){
-      request.get('User', {
-        params: {DepartmentId:selectedDepartment, RoleIDs:'DMA', pageIndex:1, pageSize:1}
-      }).then(res => {
-        if(res.data.length > 0){
-          setManagerId(res.data[0].Id)
-        }
-      }).catch(err => {alert('Fail to get manager')})
-    }
+    // if(selectedDepartment){
+    //   request.get('User', {
+    //     params: {DepartmentId:selectedDepartment, RoleIDs:'DMA', pageIndex:1, pageSize:1}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setManagerId(res.data[0].Id)
+    //     }
+    //   }).catch(err => {alert('Fail to get manager')})
+    // }
   }, [selectedDepartment])
 
   //get subjects and filter requested subjects
   useEffect(() => {
-    if (selectedDepartment) {
-      request.get('Subject', {
-        params: {
-          DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) {
-          let dataSubject = res.data;
-          for(let i in requests){
-            dataSubject = dataSubject.filter(data => (data.Id !== requests[i].SubjectId))
-          }
-          setSubjects(dataSubject);
-          setSelectedSubject(dataSubject[0]?.Id)
-        }
-      }).catch(err => { alert('Fail to load subjects !!' + err); })
-    }
+    // if (selectedDepartment) {
+    //   request.get('Subject', {
+    //     params: {
+    //       DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       let dataSubject = res.data;
+    //       for(let i in requests){
+    //         dataSubject = dataSubject.filter(data => (data.Id !== requests[i].SubjectId))
+    //       }
+    //       setSubjects(dataSubject);
+    //       setSelectedSubject(dataSubject[0]?.Id)
+    //     }
+    //   }).catch(err => { alert('Fail to load subjects !!' + err); })
+    // }
   }, [selectedDepartment, requests])
 
   const createRequest = () => {

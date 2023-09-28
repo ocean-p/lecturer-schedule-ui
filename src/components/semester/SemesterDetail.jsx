@@ -8,6 +8,7 @@ import request from '../../utils/request';
 import Title from '../title/Title';
 import { blue, green, grey} from '@mui/material/colors';
 import SubjectContainer from '../subject/SubjectContainer';
+import { semestersData } from '../../data/Semesters';
 
 const SemesterDetail = () => {
   const [isSelected, setIsSelected] = useState(1)
@@ -18,15 +19,19 @@ const SemesterDetail = () => {
 
   //get semester by id
   useEffect(() => {
-    request.get(`Semester/${id}`)
-      .then(res => {
-        if (res.status === 200) {
-          setSemester(res.data)
-        }
-      })
-      .catch(err => {
-        alert('Fail to load Semester Detail!')
-      })
+    const semesterData = semestersData.find(item => item.Id.toString() === id)
+    if(semesterData){
+      setSemester(semesterData)
+    }
+    // request.get(`Semester/${id}`)
+    //   .then(res => {
+    //     if (res.status === 200) {
+    //       setSemester(res.data)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load Semester Detail!')
+    //   })
   }, [id, refresh])
 
   const backToSemester = () => {

@@ -5,9 +5,10 @@ import {HashLoader} from 'react-spinners';
 import request from '../../utils/request';
 import SemesterCard from './SemesterCard';
 import { green, red } from '@mui/material/colors';
+import { semestersData } from '../../data/Semesters';
 
 const Semester = () => {
-  const [semesters, setSemesters] = useState([]);
+  const [semesters, setSemesters] = useState(semestersData);
   const [loading, setLoading] = useState(false);
 
   //get semester list

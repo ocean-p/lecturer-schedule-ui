@@ -23,59 +23,59 @@ const SubjectRequestDetail = ({ isDetail, setIsDetail, pickedSubject, scheduleId
   const [isResponsed, setIsResponsed] = useState(false);
 
   useEffect(() => {
-    request.get('CourseAssign', {
-      params: {ScheduleId: scheduleId, sortBy: 'LecturerId', order: 'Asc',
-        pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.status === 200){
-        setAssignedCourses(res.data)
-      }
-    }).catch(err => {alert('Fail to get assigned courses')})
+    // request.get('CourseAssign', {
+    //   params: {ScheduleId: scheduleId, sortBy: 'LecturerId', order: 'Asc',
+    //     pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.status === 200){
+    //     setAssignedCourses(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get assigned courses')})
   }, [scheduleId, afterSave])
 
   useEffect(() => {
-    request.get('Request', {
-      params: {
-        DepartmentManagerId: account.Id, SemesterId: semesterId, SubjectId: pickedSubject.Id,
-        ResponseState: 0, sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data) {
-        setRequests(res.data)
-      }
-    }).catch(err => { alert('Fail to get requests') })
-  }, [account.Id, semesterId, pickedSubject.Id, afterSave])
+    // request.get('Request', {
+    //   params: {
+    //     DepartmentManagerId: account.Id, SemesterId: semesterId, SubjectId: pickedSubject.Id,
+    //     ResponseState: 0, sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data) {
+    //     setRequests(res.data)
+    //   }
+    // }).catch(err => { alert('Fail to get requests') })
+  }, [account?.Id, semesterId, pickedSubject?.Id, afterSave])
 
   useEffect(() => {
-    request.get('User', {
-      params: {RoleIDs:'LC', sortBy:'Id', order: 'Asc', 
-        pageIndex: 1, pageSize:100}
-    }).then(res => {
-      if(res.status === 200){
-        setLecturers(res.data)
-      }
-    }).catch(err => {alert('Fail to get info of lecturer')})
+    // request.get('User', {
+    //   params: {RoleIDs:'LC', sortBy:'Id', order: 'Asc', 
+    //     pageIndex: 1, pageSize:100}
+    // }).then(res => {
+    //   if(res.status === 200){
+    //     setLecturers(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get info of lecturer')})
   }, [])
 
   useEffect(() => {
-    if(pickedSubject.Id && semesterId){
-      request.get(`CourseAssign/GetUserAssignOutDepartment/${pickedSubject.Id}&${semesterId}`)
-      .then(res => {
-        if(res.status === 200){
-          setOutSideLecs(res.data)
-        }
-      })
-      .catch(err => {alert('Fail to get external number')})
+    // if(pickedSubject.Id && semesterId){
+    //   request.get(`CourseAssign/GetUserAssignOutDepartment/${pickedSubject.Id}&${semesterId}`)
+    //   .then(res => {
+    //     if(res.status === 200){
+    //       setOutSideLecs(res.data)
+    //     }
+    //   })
+    //   .catch(err => {alert('Fail to get external number')})
 
-      request.get(`CourseAssign/GetUserAssignInDepartment/${pickedSubject.Id}&${semesterId}`)
-      .then(res => {
-        if(res.status === 200){
-          setInSideLecs(res.data)
-        }
-      })
-      .catch(err => {alert('Fail to get internal number')})
-    }
-  }, [pickedSubject.Id, semesterId, afterSave])
+    //   request.get(`CourseAssign/GetUserAssignInDepartment/${pickedSubject.Id}&${semesterId}`)
+    //   .then(res => {
+    //     if(res.status === 200){
+    //       setInSideLecs(res.data)
+    //     }
+    //   })
+    //   .catch(err => {alert('Fail to get internal number')})
+    // }
+  }, [pickedSubject?.Id, semesterId, afterSave])
 
   const acceptRequest = (req) => {
     setPickedRequest(req)

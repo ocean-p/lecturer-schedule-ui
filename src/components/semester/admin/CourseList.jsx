@@ -63,95 +63,95 @@ const CourseList = ({ semesterId, scheduleId, slotTypes, semesterState, setReloa
 
   //get all departments 
   useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const resDepart = await request.get('Department', {
-          params: {
-            sortBy: 'Id', order: 'Asc',
-            pageIndex: 1, pageSize: 1000
-          }
-        })
-        if (resDepart.data) {
-          setDepartments(resDepart.data)
-          setSelectedDepartment(resDepart.data[0]?.Id)
-        }
-      }
-      catch (error) { alert('Fail to get Department!') }
-    }
+    // const getDepartments = async () => {
+    //   try {
+    //     const resDepart = await request.get('Department', {
+    //       params: {
+    //         sortBy: 'Id', order: 'Asc',
+    //         pageIndex: 1, pageSize: 1000
+    //       }
+    //     })
+    //     if (resDepart.data) {
+    //       setDepartments(resDepart.data)
+    //       setSelectedDepartment(resDepart.data[0]?.Id)
+    //     }
+    //   }
+    //   catch (error) { alert('Fail to get Department!') }
+    // }
 
-    getDepartments();
+    // getDepartments();
   }, [])
 
   //get subjects by department
   useEffect(() => {
-    if (selectedDepartment) {
-      request.get('Subject', {
-        params: {
-          DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) {
-          setSubjects(res.data);
-        }
-      }).catch(err => { alert('Fail to load subjects'); })
-    }
+    // if (selectedDepartment) {
+    //   request.get('Subject', {
+    //     params: {
+    //       DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setSubjects(res.data);
+    //     }
+    //   }).catch(err => { alert('Fail to load subjects'); })
+    // }
   }, [selectedDepartment])
 
   //get courses by selected subject
   useEffect(() => {
-    setLoadCourse(true)
-    if (selectedSubject && semesterId && subjects.length > 0) {
-      request.get('Course', {
-        params: {
-          SubjectId: selectedSubject === 'all' ? '' : selectedSubject, 
-          SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 1000
-        }
-      }).then(res => {
-        if (res.status === 200) {
-          let internal = res.data
-          let external = res.data
-          for (let i in subjects) {
-            external = external.filter(course => course.SubjectId !== subjects[i].Id)
-          }
-          for (let i in external) {
-            internal = internal.filter(course => course.SubjectId !== external[i].SubjectId)
-          }
-          setCourses(internal)
-          setLoadCourse(false)
-        }
-      }).catch(err => { alert('Fail to load courses'); setLoadCourse(false) })
-    }
+    // setLoadCourse(true)
+    // if (selectedSubject && semesterId && subjects.length > 0) {
+    //   request.get('Course', {
+    //     params: {
+    //       SubjectId: selectedSubject === 'all' ? '' : selectedSubject, 
+    //       SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 1000
+    //     }
+    //   }).then(res => {
+    //     if (res.status === 200) {
+    //       let internal = res.data
+    //       let external = res.data
+    //       for (let i in subjects) {
+    //         external = external.filter(course => course.SubjectId !== subjects[i].Id)
+    //       }
+    //       for (let i in external) {
+    //         internal = internal.filter(course => course.SubjectId !== external[i].SubjectId)
+    //       }
+    //       setCourses(internal)
+    //       setLoadCourse(false)
+    //     }
+    //   }).catch(err => { alert('Fail to load courses'); setLoadCourse(false) })
+    // }
   }, [semesterId, selectedSubject, subjects, reload])
 
   //get assign courses
   useEffect(() => {
-    if(scheduleId){
-      request.get('CourseAssign', {
-        params: { ScheduleId: scheduleId, order: 'Asc', pageIndex: 1, pageSize: 1000 }
-      }).then(res => {
-        if (res.data) {
-          setAssignedCourses(res.data)
-        }
-      }).catch(err => alert('Fail to load course assign'))
-    }
+    // if(scheduleId){
+    //   request.get('CourseAssign', {
+    //     params: { ScheduleId: scheduleId, order: 'Asc', pageIndex: 1, pageSize: 1000 }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setAssignedCourses(res.data)
+    //     }
+    //   }).catch(err => alert('Fail to load course assign'))
+    // }
   }, [scheduleId, refresh])
 
   //get all courses to show total
   useEffect(() => {
-    if(semesterId){
-      request.get('Course', {
-        params: {
-          SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 1000
-        }
-      }).then(res => {
-        if (res.data.length > 0) {
-          setAllCourses(res.data)
-        }
-      }).catch(err => { alert('Fail to load courses') })
-    }
+    // if(semesterId){
+    //   request.get('Course', {
+    //     params: {
+    //       SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 1000
+    //     }
+    //   }).then(res => {
+    //     if (res.data.length > 0) {
+    //       setAllCourses(res.data)
+    //     }
+    //   }).catch(err => { alert('Fail to load courses') })
+    // }
   }, [semesterId, reload])
 
   const handleChangePage = (event, newPage) => {

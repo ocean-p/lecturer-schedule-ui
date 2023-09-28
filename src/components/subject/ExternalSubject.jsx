@@ -25,66 +25,66 @@ const ExternalSubject = ({ semesterId, semesterState }) => {
 
   //get Department to get Department Group --> list department in group
   useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const response = await request.get(`Department/${account.DepartmentId}`);
-        const departmentRes = await request.get('Department', {
-          params: { DepartmentGroupId: response.data.DepartmentGroupId,
-            sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 100}
-        })
-        if(departmentRes.data.length > 0){
-          let data = departmentRes.data
-          data = data.filter(item => item.Id !== account.DepartmentId)
-          setDepartments(data)
-          setSelectedDepartment(data[0]?.Id)
-        }
-      }
-      catch (error) {
-        alert('Fail to get Department!')
-      }
-    }
+    // const getDepartments = async () => {
+    //   try {
+    //     const response = await request.get(`Department/${account.DepartmentId}`);
+    //     const departmentRes = await request.get('Department', {
+    //       params: { DepartmentGroupId: response.data.DepartmentGroupId,
+    //         sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 100}
+    //     })
+    //     if(departmentRes.data.length > 0){
+    //       let data = departmentRes.data
+    //       data = data.filter(item => item.Id !== account.DepartmentId)
+    //       setDepartments(data)
+    //       setSelectedDepartment(data[0]?.Id)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to get Department!')
+    //   }
+    // }
 
-    getDepartments();
-  }, [account.DepartmentId])
+    // getDepartments();
+  }, [])
 
   //get Subject by selected department
   useEffect(() => {
-    setLoadSubject(true)
-    const getSubjects = async () => {
-      try {
-        const response = await request.get('Subject', {
-          params: { DepartmentId: selectedDepartment, sortBy:'Id', 
-            order: 'Asc', pageIndex: 1, pageSize: 1000}
-        })
-        if (response.data) {
-          setSubjects(response.data)
-          setLoadSubject(false);
-        }
-      }
-      catch (error) {
-        alert('Fail to load subjects!');
-        setLoadSubject(false);
-      }
-    }
+    // setLoadSubject(true)
+    // const getSubjects = async () => {
+    //   try {
+    //     const response = await request.get('Subject', {
+    //       params: { DepartmentId: selectedDepartment, sortBy:'Id', 
+    //         order: 'Asc', pageIndex: 1, pageSize: 1000}
+    //     })
+    //     if (response.data) {
+    //       setSubjects(response.data)
+    //       setLoadSubject(false);
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load subjects!');
+    //     setLoadSubject(false);
+    //   }
+    // }
 
-    if(selectedDepartment) getSubjects();
+    // if(selectedDepartment) getSubjects();
   }, [selectedDepartment])
 
   //get requests
   useEffect(() => {
-    if(semesterId){
-      request.get('Request', {
-        params: {
-          LecturerId: account.Id, SemesterId: semesterId, 
-          sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) {
-          setRequests(res.data)
-        }
-      }).catch(err => { alert('Fail to get requests') })
-    }
-  }, [account.Id, semesterId, isRequest])
+    // if(semesterId){
+    //   request.get('Request', {
+    //     params: {
+    //       LecturerId: account.Id, SemesterId: semesterId, 
+    //       sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setRequests(res.data)
+    //     }
+    //   }).catch(err => { alert('Fail to get requests') })
+    // }
+  }, [semesterId, isRequest])
 
   //set rows = subject.length
   useEffect(() => {

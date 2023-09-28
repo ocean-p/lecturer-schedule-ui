@@ -11,17 +11,17 @@ const LecturerContainer = ({admin, semester, scheduleId, refresh}) => {
   const [reloadConfirm, setReloadConfirm] = useState(false);
 
   useEffect(() => {
-    if(account.Id && semester.Id){
-      request.get('LecturerCourseGroup', {
-        params: {SemesterId: semester.Id, LecturerId: account.Id,
-          pageIndex:1, pageSize:1}
-      }).then(res => {
-        if(res.data.length > 0){
-          setMyCourseGroup(res.data[0])
-        }
-      }).catch(err => {alert('Fail to get manager course group')})
-    }
-  }, [account.Id, semester, reloadConfirm, refresh])
+    // if(account.Id && semester.Id){
+    //   request.get('LecturerCourseGroup', {
+    //     params: {SemesterId: semester.Id, LecturerId: account.Id,
+    //       pageIndex:1, pageSize:1}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setMyCourseGroup(res.data[0])
+    //     }
+    //   }).catch(err => {alert('Fail to get manager course group')})
+    // }
+  }, [account?.Id, semester, reloadConfirm, refresh])
 
   const handleSelect = (lecturer) => {
     setSelectedLecturer(lecturer)

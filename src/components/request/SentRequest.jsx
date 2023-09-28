@@ -26,13 +26,13 @@ const SentRequest = ({isView, setIsView, requests}) => {
   }, [requests, value])
 
   useEffect(() => {
-    request.get('Subject', {
-      params: {sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 500}
-    }).then(res => {
-      if(res.data.length > 0){
-        setSubs(res.data)
-      }
-    }).catch(err => {alert('Fail to get subjects')})
+    // request.get('Subject', {
+    //   params: {sortBy:'Id', order: 'Asc', pageIndex: 1, pageSize: 500}
+    // }).then(res => {
+    //   if(res.data.length > 0){
+    //     setSubs(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get subjects')})
   }, [])
 
   const handleChangePage = (event, newPage) => {

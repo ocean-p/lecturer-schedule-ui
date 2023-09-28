@@ -152,7 +152,7 @@ const RatingModal = ({ isRating, setIsRating, subjectId, favoriteSubjects, loadP
         </Stack>
         <Stack direction='row' mb={1}>
           <Typography width='100px' fontWeight={500}>Department: </Typography>
-          <Typography>{account.DepartmentName}</Typography>
+          <Typography>{}</Typography>
         </Stack>
         <Stack alignItems='center' gap={2}>
           <FormControl margin='normal'>

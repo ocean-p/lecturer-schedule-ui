@@ -9,22 +9,22 @@ const SlotType = ({ semesterId }) => {
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
-    if (semesterId) {
-      request.get('SlotType', {
-        params: {
-          SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
-          pageIndex: 1, pageSize: 100,
-        }
-      })
-        .then(res => {
-          if (res.status === 200) {
-            setSlots(res.data)
-          }
-        })
-        .catch(err => {
-          alert('Fail to load slot!')
-        })
-    }
+    // if (semesterId) {
+    //   request.get('SlotType', {
+    //     params: {
+    //       SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100,
+    //     }
+    //   })
+    //     .then(res => {
+    //       if (res.status === 200) {
+    //         setSlots(res.data)
+    //       }
+    //     })
+    //     .catch(err => {
+    //       alert('Fail to load slot!')
+    //     })
+    // }
   }, [semesterId])
 
   return (

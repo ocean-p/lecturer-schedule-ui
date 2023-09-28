@@ -23,37 +23,37 @@ const SlotType = ({ semesterId, semesterState }) => {
 
   //get slottype list
   useEffect(() => {
-    setLoadSlot(true)
-    if(semesterId){
-      request.get('SlotType', {
-        params: {SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', 
-          order: 'Asc', pageIndex: 1, pageSize: 100}
-      }).then(res => {
-        if (res.status === 200) {
-          setSlots(res.data)
-          setLoadSlot(false)
-        }
-      }).catch(err => {alert('Fail to load slot!'); setLoadSlot(false)})
-    }
+    // setLoadSlot(true)
+    // if(semesterId){
+    //   request.get('SlotType', {
+    //     params: {SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', 
+    //       order: 'Asc', pageIndex: 1, pageSize: 100}
+    //   }).then(res => {
+    //     if (res.status === 200) {
+    //       setSlots(res.data)
+    //       setLoadSlot(false)
+    //     }
+    //   }).catch(err => {alert('Fail to load slot!'); setLoadSlot(false)})
+    // }
   }, [semesterId])
 
   //get slotfavorite by lecturerId, semesterId
   useEffect(() => {
-    if(account.Id && semesterId){
-      request.get('LecturerSlotConfig', {
-        params: {
-          LecturerId: account.Id, SemesterId: semesterId,
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.status === 200) {
-          setFavoriteSlots(res.data)
-        }
-      }).catch(err => {
-        alert('Fail to load favorite slots!');
-      })
-    }
-  }, [account.Id, semesterId, reload])
+    // if(account.Id && semesterId){
+    //   request.get('LecturerSlotConfig', {
+    //     params: {
+    //       LecturerId: account.Id, SemesterId: semesterId,
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.status === 200) {
+    //       setFavoriteSlots(res.data)
+    //     }
+    //   }).catch(err => {
+    //     alert('Fail to load favorite slots!');
+    //   })
+    // }
+  }, [account?.Id, semesterId, reload])
 
   //set pickedslot
   useEffect(() => {

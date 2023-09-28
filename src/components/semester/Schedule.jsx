@@ -142,7 +142,7 @@ const Schedule = ({ semester, selectedId, popUp, isManager, lecturerDepart, myCo
       
       {semester.State && (semester.State === 5 || semester.State === 6) && <>
       <Timetable selectedSemester={semester?.Id} selectedWeekObj={selectedWeekObj}
-        lecturerId={selectedId ? selectedId : account.Id} popUp={popUp} isSwap={isSwap}
+        lecturerId={selectedId ? selectedId : account?.Id} popUp={popUp} isSwap={isSwap}
         clickSlotToSwap={clickSlotToSwap} afterSwap={afterSwap} overTen={overTen}/>
       <Box height='16px'>
       </Box>

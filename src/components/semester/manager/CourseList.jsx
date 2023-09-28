@@ -54,72 +54,72 @@ const CourseList = ({ semesterId, semesterState, scheduleId, refresh }) => {
 
   //get subjects by selected department
   useEffect(() => {
-    if (account.DepartmentId) {
-      request.get('Subject', {
-        params: {
-          DepartmentId: account.DepartmentId, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) {
-          setSubjects(res.data);
-        }
-      }).catch(err => {alert('Fail to load subjects');})
-    }
-  }, [account.DepartmentId])
+    // if (account.DepartmentId) {
+    //   request.get('Subject', {
+    //     params: {
+    //       DepartmentId: account.DepartmentId, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setSubjects(res.data);
+    //     }
+    //   }).catch(err => {alert('Fail to load subjects');})
+    // }
+  }, [account?.DepartmentId])
 
   //get courses by selected subject
   useEffect(() => {
-    setLoadCourse(true)
-    if (selectedSubject && semesterId && subjects.length > 0) {
-      request.get('Course', {
-        params: {
-          SubjectId: selectedSubject === 'all' ? '' : selectedSubject, 
-          SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 1000
-        }
-      }).then(res => {
-        if (res.data) {
-          let internal = res.data
-          let external = res.data
-          for (let i in subjects) {
-            external = external.filter(course => course.SubjectId !== subjects[i].Id)
-          }
-          for (let i in external) {
-            internal = internal.filter(course => course.SubjectId !== external[i].SubjectId)
-          }
-          setCourses(internal)
-          setLoadCourse(false);
-        }
-      }).catch(err => { alert('Fail to load courses'); setLoadCourse(false)})
-    }
+    // setLoadCourse(true)
+    // if (selectedSubject && semesterId && subjects.length > 0) {
+    //   request.get('Course', {
+    //     params: {
+    //       SubjectId: selectedSubject === 'all' ? '' : selectedSubject, 
+    //       SemesterId: semesterId, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 1000
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       let internal = res.data
+    //       let external = res.data
+    //       for (let i in subjects) {
+    //         external = external.filter(course => course.SubjectId !== subjects[i].Id)
+    //       }
+    //       for (let i in external) {
+    //         internal = internal.filter(course => course.SubjectId !== external[i].SubjectId)
+    //       }
+    //       setCourses(internal)
+    //       setLoadCourse(false);
+    //     }
+    //   }).catch(err => { alert('Fail to load courses'); setLoadCourse(false)})
+    // }
   }, [semesterId, selectedSubject, subjects])
 
   //get assign courses
   useEffect(() => {
-    if(scheduleId){
-      request.get('CourseAssign', {
-        params: { ScheduleId: scheduleId, order: 'Asc', pageIndex: 1, pageSize: 1000 }
-      }).then(res => {
-        if (res.data) {
-          setAssignedCourses(res.data)
-        }
-      }).catch(err => alert('Fail to load course assign'))
-    }
+    // if(scheduleId){
+    //   request.get('CourseAssign', {
+    //     params: { ScheduleId: scheduleId, order: 'Asc', pageIndex: 1, pageSize: 1000 }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setAssignedCourses(res.data)
+    //     }
+    //   }).catch(err => alert('Fail to load course assign'))
+    // }
   }, [scheduleId, isAssign, isClear, refresh])
 
   //get slot types
   useEffect(() => {
-    if(semesterId){
-      request.get('SlotType', {
-        params: {
-          SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) setSlotTypes(res.data);
-      }).catch(err => alert('Fail to load slottype'))
-    }
+    // if(semesterId){
+    //   request.get('SlotType', {
+    //     params: {
+    //       SemesterId: semesterId, sortBy: 'DayOfWeekAndTimeStart', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) setSlotTypes(res.data);
+    //   }).catch(err => alert('Fail to load slottype'))
+    // }
   }, [semesterId])
 
   const handleChangeRowsPerPage = (event) => {
@@ -223,7 +223,7 @@ const CourseList = ({ semesterId, semesterState, scheduleId, refresh }) => {
       <Stack mb={2} gap={1} flexWrap='wrap'>
         <Stack direction='row' alignItems='center' gap={1}>
           <Typography fontWeight={500}> Department: </Typography>
-          <Typography>{account.DepartmentName}</Typography>
+          <Typography>{account?.DepartmentName}</Typography>
         </Stack>
         <Stack direction='row' alignItems='center'>
           <Typography fontWeight={500}> Subject: </Typography>

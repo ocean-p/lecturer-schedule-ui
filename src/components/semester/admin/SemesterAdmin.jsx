@@ -10,10 +10,11 @@ import Title from '../../title/Title'
 import SemesterCardAdmin from './SemesterCardAdmin';
 import SemesterCreate from './SemesterCreate';
 import SemesterUpdate from './SemesterUpdate';
+import { semestersData } from '../../../data/Semesters';
 
 const SemesterAdmin = () => {
   const [isCreate, setIsCreate] = useState(false);
-  const [semesters, setSemesters] = useState([]);
+  const [semesters, setSemesters] = useState(semestersData);
   const [loading, setLoading] = useState(false);
   const [selectedSemester, setSelectedSemester] = useState({});
   const [isDelete, setIsDelete] = useState(false);
@@ -48,16 +49,16 @@ const SemesterAdmin = () => {
   }
 
   const saveDelete = () => {
-    if(selectedSemester.Id){
-      request.delete(`Semester/${selectedSemester.Id}`)
-      .then(res => {
-        if(res.status === 200){
-          setIsDelete(false);
-          setReload(!reload)
-        }
-      })
-      .catch(err => {alert('Fail to delete')})
-    }
+    // if(selectedSemester.Id){
+    //   request.delete(`Semester/${selectedSemester.Id}`)
+    //   .then(res => {
+    //     if(res.status === 200){
+    //       setIsDelete(false);
+    //       setReload(!reload)
+    //     }
+    //   })
+    //   .catch(err => {alert('Fail to delete')})
+    // }
   }
 
   const clickUpdate = (pickedSemester) => {

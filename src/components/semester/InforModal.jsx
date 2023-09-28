@@ -42,57 +42,57 @@ const InforModal = ({ isSelected, setIsSelected, semester, selectedLecturer, adm
 
   //get all subjects
   useEffect(() => {
-    request.get('Subject', {
-      params: {sortBy: 'Id', order:'Asc', pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.data){
-        setAllSubjects(res.data)
-      }
-    }).catch(err => alert('Fail to get all subjects'))
+    // request.get('Subject', {
+    //   params: {sortBy: 'Id', order:'Asc', pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.data){
+    //     setAllSubjects(res.data)
+    //   }
+    // }).catch(err => alert('Fail to get all subjects'))
   }, [])
 
   //get lecturers by department
   useEffect(() => {
-    if(selectedLecturer.Id){
-      setSelectedLec(selectedLecturer.Id)
-      request.get('User', {
-        params: {DepartmentId: selectedLecturer.DepartmentId, RoleIDs:'LC', sortBy:'Id', 
-          order: 'Asc', pageIndex:1, pageSize:100}
-      }).then(res => {
-        if(res.status === 200){
-          setLecturers(res.data)
-        }
-      }).catch(err => {alert('Fail to get lecturers')})
-    }
+    // if(selectedLecturer.Id){
+    //   setSelectedLec(selectedLecturer.Id)
+    //   request.get('User', {
+    //     params: {DepartmentId: selectedLecturer.DepartmentId, RoleIDs:'LC', sortBy:'Id', 
+    //       order: 'Asc', pageIndex:1, pageSize:100}
+    //   }).then(res => {
+    //     if(res.status === 200){
+    //       setLecturers(res.data)
+    //     }
+    //   }).catch(err => {alert('Fail to get lecturers')})
+    // }
   }, [selectedLecturer])
 
   //get all assign course after generate schedule
   useEffect(() => {
-    if(scheduleId && passLec.Id){
-      request.get('CourseAssign', {
-        params: {ScheduleId: scheduleId, LecturerId: passLec.Id,  
-          pageIndex: 1, pageSize: 500}
-      }).then(res => {
-        if(res.data.length > 0){
-          setAssignedCourses(res.data)
-        }
-      }).catch(err => {alert('Fail to get assigned courses of lecturers')})
-    }
-  }, [scheduleId, passLec.Id, refreshCourse])
+    // if(scheduleId && passLec.Id){
+    //   request.get('CourseAssign', {
+    //     params: {ScheduleId: scheduleId, LecturerId: passLec.Id,  
+    //       pageIndex: 1, pageSize: 500}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setAssignedCourses(res.data)
+    //     }
+    //   }).catch(err => {alert('Fail to get assigned courses of lecturers')})
+    // }
+  }, [scheduleId, passLec?.Id, refreshCourse])
 
   //get lecturer course group to show min max course
   useEffect(() => {
-    if(semester.Id && passLec.Id){
-      request.get('LecturerCourseGroup', {
-        params: {SemesterId: semester.Id, LecturerId: passLec.Id,
-          pageIndex:1, pageSize:1}
-      }).then(res => {
-        if(res.data.length > 0){
-          setLecGroup(res.data[0])
-        }
-      }).catch(err => {alert('Fail to get min max course of lecturer')})
-    }
-  }, [semester.Id, passLec.Id, refreshCourse])
+    // if(semester.Id && passLec.Id){
+    //   request.get('LecturerCourseGroup', {
+    //     params: {SemesterId: semester.Id, LecturerId: passLec.Id,
+    //       pageIndex:1, pageSize:1}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setLecGroup(res.data[0])
+    //     }
+    //   }).catch(err => {alert('Fail to get min max course of lecturer')})
+    // }
+  }, [semester?.Id, passLec?.Id, refreshCourse])
 
   return (
     <Dialog maxWidth='lg' fullWidth={true}
@@ -104,7 +104,7 @@ const InforModal = ({ isSelected, setIsSelected, semester, selectedLecturer, adm
             onClick={() => setIsSelected(false)}>
             Close</Button>
         </Stack>
-        {(!admin && (selectedLecturer.DepartmentId !== account.DepartmentId)) && 
+        {(!admin && (selectedLecturer.DepartmentId !== account?.DepartmentId)) && 
           <Alert severity='warning'>This lecturer is external</Alert>}
       </DialogTitle>
       <DialogContent>
@@ -138,7 +138,7 @@ const InforModal = ({ isSelected, setIsSelected, semester, selectedLecturer, adm
             sx={{ '&:hover': { cursor: 'pointer', color: green[600] } }}>
             {tabs[0].name}
           </Typography>
-          {!admin && semester.State === 5 && selectedLecturer.DepartmentId === account.DepartmentId &&
+          {!admin && semester.State === 5 && selectedLecturer?.DepartmentId === account?.DepartmentId &&
             myCourseGroup.GroupName !== 'confirm' &&
             <Typography color={selected === tabs[5].name ? green[600] : grey[500]} py={0.5}
               borderBottom={selected === tabs[5].name && `4px solid ${green[600]}`}
@@ -153,7 +153,7 @@ const InforModal = ({ isSelected, setIsSelected, semester, selectedLecturer, adm
             sx={{ '&:hover': { cursor: 'pointer', color: green[600] } }}>
             {tabs[1].name}
           </Typography>
-          {(admin || selectedLecturer.DepartmentId === account.DepartmentId) &&<>
+          {(admin || selectedLecturer?.DepartmentId === account?.DepartmentId) &&<>
           <Typography color={selected === tabs[2].name ? green[600] : grey[500]} py={0.5}
             borderBottom={selected === tabs[2].name && `4px solid ${green[600]}`}
             fontSize='20px' onClick={() => setSelected(tabs[2].name)}

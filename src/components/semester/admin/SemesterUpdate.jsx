@@ -35,21 +35,21 @@ const SemesterUpdate = ({isUpdate, setIsUpdate, selectedSemester, handleAfterUpd
   }, [selectedSemester.Term])
 
   const updateSemester = () => {
-    if(startDate!==selectedSemester.DateStartFormat || endDate!==selectedSemester.DateEndFormat){
-      setLoadUpdate(true)
-      request.put(`Semester/${selectedSemester.Id}`, {
-        Term: selectedSemester.Term,
-        DateStart: startDate,
-        DateEnd: endDate,
-        State: selectedSemester.State
-      }).then(res => {
-        if(res.status === 200){
-          setIsUpdate(false)
-          setLoadUpdate(false)
-          handleAfterUpdate(true)
-        }
-      }).catch(err => {alert('Fail to update semester'); setLoadUpdate(false)})
-    }
+    // if(startDate!==selectedSemester.DateStartFormat || endDate!==selectedSemester.DateEndFormat){
+    //   setLoadUpdate(true)
+    //   request.put(`Semester/${selectedSemester.Id}`, {
+    //     Term: selectedSemester.Term,
+    //     DateStart: startDate,
+    //     DateEnd: endDate,
+    //     State: selectedSemester.State
+    //   }).then(res => {
+    //     if(res.status === 200){
+    //       setIsUpdate(false)
+    //       setLoadUpdate(false)
+    //       handleAfterUpdate(true)
+    //     }
+    //   }).catch(err => {alert('Fail to update semester'); setLoadUpdate(false)})
+    // }
   }
 
   return (
@@ -61,7 +61,7 @@ const SemesterUpdate = ({isUpdate, setIsUpdate, selectedSemester, handleAfterUpd
       <DialogContent>
         <Stack mb={2}>
           <Typography fontWeight={500}>Start Date</Typography>
-          <Select size='small' value={startDate} 
+          <Select size='small' value={startDate}
             onChange={(e) => setStartDate(e.target.value)}>
             {mondays.map(monday => (
               <MenuItem key={monday} value={monday}>{monday.split('-').reverse().join('/')}</MenuItem>

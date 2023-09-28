@@ -16,63 +16,63 @@ const SubjectRequest = ({semesterId, semesterState, scheduleId}) => {
 
   //get subject by manager's department id
   useEffect(() => {
-    const getSubjects = async () => {
-      try {
-        const response = await request.get('Subject', {
-          params: {
-            DepartmentId: account.DepartmentId, sortBy: 'Id', order: 'Asc',
-            pageIndex: 1, pageSize: 100
-          }
-        })
-        if (response.data) {
-          setSubjects(response.data)
-        }
-      }
-      catch (error) {
-        alert('Fail to load subjects!');
-      }
-    }
+    // const getSubjects = async () => {
+    //   try {
+    //     const response = await request.get('Subject', {
+    //       params: {
+    //         DepartmentId: account.DepartmentId, sortBy: 'Id', order: 'Asc',
+    //         pageIndex: 1, pageSize: 100
+    //       }
+    //     })
+    //     if (response.data) {
+    //       setSubjects(response.data)
+    //     }
+    //   }
+    //   catch (error) {
+    //     alert('Fail to load subjects!');
+    //   }
+    // }
 
-    getSubjects();
-  }, [account.DepartmentId])
+    // getSubjects();
+  }, [account?.DepartmentId])
 
   //get all courses in semester 
   useEffect(() => {
-    request.get('Course', {
-      params: {SemesterId: semesterId, sortBy: 'SubjectId', order: 'Asc',
-        pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.data){
-        setCourses(res.data)
-      }
-    }).catch(err => {alert('Fail to get total courses')})
+    // request.get('Course', {
+    //   params: {SemesterId: semesterId, sortBy: 'SubjectId', order: 'Asc',
+    //     pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.data){
+    //     setCourses(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get total courses')})
   }, [semesterId])
 
   //get all courses assigned in semester
   useEffect(() => {
-    request.get('CourseAssign', {
-      params: {ScheduleId: scheduleId, sortBy: 'CourseId', order: 'Asc',
-        pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.status === 200){
-        setAssignedCourses(res.data)
-      }
-    }).catch(err => {alert('Fail to get assigned courses')})
+    // request.get('CourseAssign', {
+    //   params: {ScheduleId: scheduleId, sortBy: 'CourseId', order: 'Asc',
+    //     pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.status === 200){
+    //     setAssignedCourses(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get assigned courses')})
   }, [scheduleId, isDetail])
 
   //get requests have state=0, to show total not responsed request
   useEffect(() => {
-    request.get('Request', {
-      params: {
-        DepartmentManagerId: account.Id, SemesterId: semesterId, ResponseState: 0, 
-        sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
-      }
-    }).then(res => {
-      if (res.data) {
-        setRequests(res.data)
-      }
-    }).catch(err => { alert('Fail to get requests') })
-  }, [account.Id, semesterId, isDetail])
+    // request.get('Request', {
+    //   params: {
+    //     DepartmentManagerId: account.Id, SemesterId: semesterId, ResponseState: 0, 
+    //     sortBy: 'DateCreate', order: 'Des', pageIndex: 1, pageSize: 100
+    //   }
+    // }).then(res => {
+    //   if (res.data) {
+    //     setRequests(res.data)
+    //   }
+    // }).catch(err => { alert('Fail to get requests') })
+  }, [account?.Id, semesterId, isDetail])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -92,7 +92,7 @@ const SubjectRequest = ({semesterId, semesterState, scheduleId}) => {
     <Stack px={9} height='90vh'>
       <Stack mb={1} direction='row' gap={1}>
         <Typography fontWeight={500}>Department: </Typography>
-        <Typography>{account.DepartmentName}</Typography>
+        <Typography>{account?.DepartmentName}</Typography>
       </Stack>
       <Stack>
         <Paper sx={{ minWidth: 700, mb: 2 }}>

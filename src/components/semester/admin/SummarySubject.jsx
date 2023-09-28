@@ -10,49 +10,49 @@ const SummarySubject = ({semesterId, scheduleId}) => {
   const [assignedCourses, setAssignedCourses] = useState([]);
 
   useEffect(() => {
-    request.get('Department', {
-      params: {sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 100}
-    }).then(res => {
-      if(res.data.length > 0){
-        setDepartments(res.data)
-        setSelectedDepartment(res.data[0]?.Id)
-      }
-    }).catch(err => {alert('Fail to get departments')})
+    // request.get('Department', {
+    //   params: {sortBy: 'Id', order: 'Asc', pageIndex: 1, pageSize: 100}
+    // }).then(res => {
+    //   if(res.data.length > 0){
+    //     setDepartments(res.data)
+    //     setSelectedDepartment(res.data[0]?.Id)
+    //   }
+    // }).catch(err => {alert('Fail to get departments')})
   }, [])
 
   useEffect(() => {
-    if(selectedDepartment){
-      request.get('Subject', {
-        params: {DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 100}
-      }).then(res => {
-        if(res.data.length > 0){
-          setSubjects(res.data)
-        }
-      }).catch(err => {alert('Fail to get subjects')})
-    }
+    // if(selectedDepartment){
+    //   request.get('Subject', {
+    //     params: {DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100}
+    //   }).then(res => {
+    //     if(res.data.length > 0){
+    //       setSubjects(res.data)
+    //     }
+    //   }).catch(err => {alert('Fail to get subjects')})
+    // }
   }, [selectedDepartment])
 
   useEffect(() => {
-    request.get('Course', {
-      params: {SemesterId: semesterId, sortBy: 'SubjectId', order: 'Asc',
-        pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.data){
-        setCourses(res.data)
-      }
-    }).catch(err => {alert('Fail to get total courses')})
+    // request.get('Course', {
+    //   params: {SemesterId: semesterId, sortBy: 'SubjectId', order: 'Asc',
+    //     pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.data){
+    //     setCourses(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get total courses')})
   }, [semesterId])
 
   useEffect(() => {
-    request.get('CourseAssign', {
-      params: {ScheduleId: scheduleId, sortBy: 'CourseId', order: 'Asc',
-        pageIndex:1, pageSize:1000}
-    }).then(res => {
-      if(res.status === 200){
-        setAssignedCourses(res.data)
-      }
-    }).catch(err => {alert('Fail to get assigned courses')})
+    // request.get('CourseAssign', {
+    //   params: {ScheduleId: scheduleId, sortBy: 'CourseId', order: 'Asc',
+    //     pageIndex:1, pageSize:1000}
+    // }).then(res => {
+    //   if(res.status === 200){
+    //     setAssignedCourses(res.data)
+    //   }
+    // }).catch(err => {alert('Fail to get assigned courses')})
   }, [scheduleId])
 
   return (

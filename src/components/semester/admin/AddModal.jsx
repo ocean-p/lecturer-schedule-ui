@@ -38,35 +38,35 @@ const AddModal = ({ isAdd, setIsAdd, departments, semesterId, handleAfterImport 
   }, [departments])
 
   useEffect(() => {
-    if (selectedDepartment) {
-      request.get('Subject', {
-        params: {
-          DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
-          pageIndex: 1, pageSize: 100
-        }
-      }).then(res => {
-        if (res.data) {
-          setSubjects(res.data);
-          setSelectedSubject(res.data[0]?.Id)
-        }
-      }).catch(err => { alert('Fail to load subjects'); })
-    }
+    // if (selectedDepartment) {
+    //   request.get('Subject', {
+    //     params: {
+    //       DepartmentId: selectedDepartment, sortBy: 'Id', order: 'Asc',
+    //       pageIndex: 1, pageSize: 100
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setSubjects(res.data);
+    //       setSelectedSubject(res.data[0]?.Id)
+    //     }
+    //   }).catch(err => { alert('Fail to load subjects'); })
+    // }
   }, [selectedDepartment])
 
   //get courses by selected subject to check duplicate course
   useEffect(() => {
-    if(selectedSubject){
-      request.get('Course', {
-        params: {
-          SubjectId: selectedSubject, SemesterId: semesterId, sortBy: 'Id', 
-          order: 'Asc', pageIndex: 1, pageSize: 1000
-        }
-      }).then(res => {
-        if (res.data) {
-          setSubjectCourses(res.data)
-        }
-      }).catch(err => { alert('Fail to load courses') })
-    } 
+    // if(selectedSubject){
+    //   request.get('Course', {
+    //     params: {
+    //       SubjectId: selectedSubject, SemesterId: semesterId, sortBy: 'Id', 
+    //       order: 'Asc', pageIndex: 1, pageSize: 1000
+    //     }
+    //   }).then(res => {
+    //     if (res.data) {
+    //       setSubjectCourses(res.data)
+    //     }
+    //   }).catch(err => { alert('Fail to load courses') })
+    // } 
   }, [selectedSubject, semesterId])
 
   const handleSelectDepartment = (e) => {

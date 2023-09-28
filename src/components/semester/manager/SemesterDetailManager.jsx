@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import request from '../../../utils/request';
 import Title from '../../title/Title';
 import SubjectRequest from '../../subject/SubjectRequest';
+import { semestersData } from '../../../data/Semesters';
 
 const SemesterDetailManager = () => {
   const { id } = useParams();
@@ -19,26 +20,28 @@ const SemesterDetailManager = () => {
 
   //get semester
   useEffect(() => {
-    request.get(`Semester/${id}`)
-      .then(res => {
-        if (res.data) {
-          setSemester(res.data);
-        }
-      })
-      .catch(err => {
-        alert('Fail to load semester')
-      })
+    const semesterData = semestersData.find(item => item.Id.toString() === id)
+    setSemester(semesterData)
+    // request.get(`Semester/${id}`)
+    //   .then(res => {
+    //     if (res.data) {
+    //       setSemester(res.data);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Fail to load semester')
+    //   })
   }, [id, refresh])
 
   //get schedule by semesterId
   useEffect(() => {
-    request.get('Schedule', {
-      params: { SemesterId: id, pageIndex: 1, pageSize: 10 }
-    })
-      .then(res => {
-        if (res.data.length > 0) setSchedule(res.data[0])
-      })
-      .catch(err => alert('Fail to get schedule'))
+    // request.get('Schedule', {
+    //   params: { SemesterId: id, pageIndex: 1, pageSize: 10 }
+    // })
+    //   .then(res => {
+    //     if (res.data.length > 0) setSchedule(res.data[0])
+    //   })
+    //   .catch(err => alert('Fail to get schedule'))
   }, [id])
 
   const backToSemesters = () => {
@@ -127,10 +130,13 @@ const SemesterDetailManager = () => {
           ))}
         </Stack>
       </Stack>
-      {selected === tabs[0].name && <CourseList semesterId={id} semesterState={semester.State} 
+      {selected === tabs[0].name && 
+        <CourseList semesterId={id} semesterState={semester.State} 
           scheduleId={schedule.Id} refresh={refresh}/>}
-      {selected === tabs[1].name && <SubjectRequest semesterId={id} semesterState={semester.State} scheduleId={schedule.Id}/>}
-      {selected === tabs[2].name && <LecturerContainer semester={semester} scheduleId={schedule.Id}
+      {selected === tabs[1].name && 
+        <SubjectRequest semesterId={id} semesterState={semester.State} scheduleId={schedule.Id}/>}
+      {selected === tabs[2].name && 
+        <LecturerContainer semester={semester} scheduleId={schedule.Id}
           refresh={refresh}/>}
     </Stack>
   )
